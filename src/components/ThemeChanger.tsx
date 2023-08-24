@@ -1,26 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { toggleTheme } from "../redux/features/theme/themeSlice";
 
 function ThemeChanger() {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const { themeMode } = useAppSelector((state) => state.theme);
+  const dispatch = useAppDispatch();
 
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
+  const handleThemeChange = () => {
+    const newThemeMode = themeMode === "dark" ? "light" : "dark";
+    dispatch(toggleTheme(newThemeMode));
+    localStorage.setItem("theme", newThemeMode);
   };
 
   useEffect(() => {
     const htmlElement = document.querySelector("html");
     if (htmlElement) {
-      htmlElement.setAttribute("data-theme", theme);
+      htmlElement.setAttribute("data-theme", themeMode);
     }
-  }, [theme]);
+  }, [themeMode]);
 
   return (
     <label className="swap swap-rotate">
-      <input type="checkbox" onChange={toggleTheme} />
+      <input type="checkbox" onChange={handleThemeChange} data-choose-theme />
+
       <svg
-        className="swap-on fill-current w-8 h-8"
+        className="swap-off fill-current w-6 h-6 md:w-8 md:h-8"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
@@ -28,7 +32,7 @@ function ThemeChanger() {
       </svg>
 
       <svg
-        className="swap-off fill-current w-8 h-8"
+        className="swap-on fill-current w-8 h-8"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
