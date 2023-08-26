@@ -4,6 +4,8 @@ import Register from "../pages/Register";
 import Main from "../layout/Main";
 import Home from "../pages/Home";
 import BlogDetails from "../pages/BlogDetails";
+import Dashboard from "../layout/Dashboard";
+import Profile from "../pages/Dashboard/Profile";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,20 @@ const router = createBrowserRouter([
       {
         path: "/blog/:id",
         element: <BlogDetails />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path: "",
+        element: <Login />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
     ],
   },

@@ -47,7 +47,11 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to="/">
-          <img src={logo} alt="BlogLab" className="h-4 w-30 md:h-6 md:w-42" />
+          <img
+            src={logo}
+            alt="BlogLab"
+            className="h-4 w-30 md:h-6 md:w-42 dark:invert dark:hue-rotate-180"
+          />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -90,10 +94,10 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a className="justify-between">
-                  Profile
+                <Link to={"/dashboard"} className="justify-between">
+                  Dashboard
                   <span className="badge">New</span>
-                </a>
+                </Link>
               </li>
               <li>
                 <a>Settings</a>
