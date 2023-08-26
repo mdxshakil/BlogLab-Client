@@ -1,4 +1,7 @@
 import carousel from "../assets/images/fantasy-2049567_1280.jpg";
+import { truncateText } from "../utils/textTruncate";
+import AddToBookmark from "./utilityComponents/AddToBookmark";
+
 type IProps = {
   name: string;
 };
@@ -20,14 +23,20 @@ const CarouselItem = ({ name }: IProps) => {
           <span className="text-gray-500"> - July 2, 2020</span>
         </p>
         <h2 className="text-xl md:text-4xl font-bold cursor-pointer hover:underline">
-          Your most unhappy customers are your greatest source of learning.
+          {truncateText(
+            "Your most unhappy customers are your greatest source of learning.",
+            65
+          )}
         </h2>
 
-        <p className="text-sm md:text-md text-justify text-gray-500">
+        {/* <p className="text-sm text-justify text-gray-500">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
           dignissimos laboriosam sapiente fugiat asperiores. Maiores neque
           consectetur rem doloribus assumenda ......
-        </p>
+        </p> */}
+        <div>
+          <AddToBookmark />
+        </div>
         <div className="flex items-center gap-4">
           <div className="avatar">
             <div className="w-10 rounded-full">
@@ -35,8 +44,10 @@ const CarouselItem = ({ name }: IProps) => {
             </div>
           </div>
           <div>
-            <h6 className="font-bold">{name}</h6>
-            <p className="text-gray-500 text-sm">CEO and Founder</p>
+            <h6 className="font-bold text-sm md:text-base">{name}</h6>
+            <p className="text-gray-500 text-[12px] md:text-sm">
+              CEO and Founder
+            </p>
           </div>
         </div>
       </div>
