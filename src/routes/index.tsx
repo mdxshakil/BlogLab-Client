@@ -5,7 +5,7 @@ import Main from "../layout/Main";
 import Home from "../pages/Home";
 import BlogDetails from "../pages/BlogDetails";
 import Dashboard from "../layout/Dashboard";
-import Profile from "../pages/Dashboard/Profile";
+import Profile from "../pages/dasboard/Profile";
 
 const router = createBrowserRouter([
   {

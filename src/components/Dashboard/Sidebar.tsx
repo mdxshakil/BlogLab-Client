@@ -14,26 +14,28 @@ const Sidebar = ({ children }: IProps) => {
 
   const dashboardSideBarLinks = [
     {
+      id: 1,
       path: "/dashboard",
-      icon: <BiSolidDashboard className="text-2xl" />,
+      icon: <BiSolidDashboard className="text-xl" />,
       label: "Dashboard",
       isActive: location === "/dashboard",
     },
     {
+      id: 2,
       path: "/dashboard/profile",
-      icon: <RxAvatar className="text-2xl" />,
+      icon: <RxAvatar className="text-xl" />,
       label: "Profile",
       isActive: location === "/dashboard/profile",
     },
   ];
 
   return (
-    <div className="relative px-2">
+    <div className="flex px-2 gap-4">
       {/* sidebar */}
       <div
         className={`${
           open ? "w-44" : "w-16"
-        } bg-base-300 h-screen px-1 duration-300 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] fixed rounded-lg`}
+        } bg-base-300 h-[88dvh] px-1 duration-300 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-lg`}
       >
         {/* sidebar logo and collapse button */}
         <div
@@ -56,9 +58,10 @@ const Sidebar = ({ children }: IProps) => {
         </div>
 
         {/* sidebar menu items */}
-        <div className="mt-8 overflow-y-auto text-center">
+        <div className="mt-6 overflow-y-auto text-center">
           {dashboardSideBarLinks.map((link) => (
             <Link
+              key={link.id}
               to={link.path}
               className={`flex items-center ${
                 open ? "justify-start" : "justify-center flex-col"
@@ -67,7 +70,7 @@ const Sidebar = ({ children }: IProps) => {
               }`}
             >
               {link.icon}
-              <span className={`${open ? "text-md" : "text-[9px]"}`}>
+              <span className={`${open ? "text-sm" : "text-[9px]"}`}>
                 {link.label}
               </span>
             </Link>
@@ -76,7 +79,7 @@ const Sidebar = ({ children }: IProps) => {
       </div>
 
       {/* content goes here */}
-      <div className="ml-[70px] bg-base-300 rounded-lg min-h-[90dvh]">
+      <div className="bg-base-300 rounded-lg h-[88dvh] w-full overflow-y-auto ">
         <div className="p-4">{children}</div>
       </div>
     </div>
