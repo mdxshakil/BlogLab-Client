@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import carousel from "../assets/images/fantasy-2049567_1280.jpg";
 import { truncateText } from "../utils/textTruncate";
 import AddToBookmark from "./utilityComponents/AddToBookmark";
@@ -7,7 +8,7 @@ type IProps = {
 };
 const CarouselItem = ({ name }: IProps) => {
   return (
-    <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 p-12 bg-base-200 dark:bg-base-200">
+    <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 p-12 ">
       <div>
         <img
           src={carousel}
@@ -22,13 +23,14 @@ const CarouselItem = ({ name }: IProps) => {
           </span>
           <span className="text-gray-500"> - July 2, 2020</span>
         </p>
-        <h2 className="text-xl md:text-4xl font-bold cursor-pointer hover:underline">
-          {truncateText(
-            "Your most unhappy customers are your greatest source of learning.",
-            65
-          )}
-        </h2>
-
+        <Link to={`/blog/:blogId`}>
+          <h2 className="text-xl md:text-4xl font-bold cursor-pointer hover:underline">
+            {truncateText(
+              "Your most unhappy customers are your greatest source of learning.",
+              65
+            )}
+          </h2>
+        </Link>
         {/* <p className="text-sm text-justify text-gray-500">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
           dignissimos laboriosam sapiente fugiat asperiores. Maiores neque

@@ -1,6 +1,9 @@
+import { BsFacebook, BsTwitter, BsInstagram } from "react-icons/bs";
+
 const Footer = () => {
   return (
-    <footer className="footer p-10 bg-base-200 text-base-content">
+    <footer className="footer grid grid-cols-2 md:grid-cols-3 p-10 bg-base-200 text-base-content">
+      {/* block 1 */}
       <div>
         <span className="footer-title">Services</span>
         <a className="link link-hover">Branding</a>
@@ -8,6 +11,7 @@ const Footer = () => {
         <a className="link link-hover">Marketing</a>
         <a className="link link-hover">Advertisement</a>
       </div>
+      {/* block 2 */}
       <div>
         <span className="footer-title">Company</span>
         <a className="link link-hover">About us</a>
@@ -15,28 +19,28 @@ const Footer = () => {
         <a className="link link-hover">Jobs</a>
         <a className="link link-hover">Press kit</a>
       </div>
+
+      {/* block 3 */}
       <div>
         <span className="footer-title">Legal</span>
         <a className="link link-hover">Terms of use</a>
         <a className="link link-hover">Privacy policy</a>
         <a className="link link-hover">Cookie policy</a>
       </div>
+
+      {/* block 4 */}
       <div>
-        <span className="footer-title">Newsletter</span>
-        <div className="form-control w-80">
-          <label className="label">
-            <span className="label-text">Enter your email address</span>
-          </label>
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="username@site.com"
-              className="input input-bordered w-full pr-16"
-            />
-            <button className="btn btn-primary absolute top-0 right-0 rounded-l-none">
-              Subscribe
-            </button>
-          </div>
+        <span className="footer-title">Follow Us on</span>
+        <div className="flex items-center justify-start gap-2">
+          <button className="btn btn-sm p-1">
+            <BsFacebook className="text-2xl hover:text-blue-600" />
+          </button>
+          <button className="btn btn-sm p-1">
+            <BsTwitter className="text-2xl hover:text-blue-400" />
+          </button>
+          <button className="btn btn-sm p-1">
+            <BsInstagram className="text-2xl hover:text-pink-600" />
+          </button>
         </div>
       </div>
     </footer>

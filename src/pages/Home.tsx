@@ -17,15 +17,19 @@ const Home = () => {
   return (
     <div className="pb-12">
       {/* carousel */}
-      <div>
-        <Slider {...settings} className="">
-          <CarouselItem name="bbbbbbbbbb" />
-          <CarouselItem name="aaaaaaaaaaa" />
-          <CarouselItem name="cccccccccc" />
-          <CarouselItem name="dddddddddd" />
-        </Slider>
+      <div className="min-h-[88dvh] flex flex-col items-center justify-center bg-base-200 dark:bg-base-200">
+        <h1 className="text-4xl font-bold text-center">Trending Blogs</h1>
+        <div className="w-full">
+          <Slider {...settings}>
+            <CarouselItem name="bbbbbbbbbb" />
+            <CarouselItem name="aaaaaaaaaaa" />
+            <CarouselItem name="cccccccccc" />
+            <CarouselItem name="dddddddddd" />
+          </Slider>
+        </div>
       </div>
       {/* carousel ends */}
+
       {/* categories */}
       <div className="flex items-center flex-wrap justify-center gap-3 pt-12">
         <CategoryBtn />
@@ -38,6 +42,7 @@ const Home = () => {
         <CategoryBtn />
       </div>
       {/* categories end */}
+
       {/* cards start */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-12 px-6 gap-12">
         <BlogCard />
@@ -54,6 +59,8 @@ const Home = () => {
       </div>
       {/* cards end */}
       {/* planning to add infinite scroll here */}
+
+      {/* pagination start */}
       <div className="flex justify-center">
         <div className="join">
           <button className="join-item btn">«</button>
@@ -61,6 +68,7 @@ const Home = () => {
           <button className="join-item btn">»</button>
         </div>
       </div>
+      {/* pagination end */}
     </div>
   );
 };

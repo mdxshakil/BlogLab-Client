@@ -7,6 +7,7 @@ import {
 } from "react-icons/ai";
 import AddToBookmark from "./utilityComponents/AddToBookmark";
 import { truncateText } from "../utils/textTruncate";
+import { Link } from "react-router-dom";
 
 const BlogCard = () => {
   return (
@@ -31,12 +32,14 @@ const BlogCard = () => {
         <div>
           <AddToBookmark />
         </div>
-        <h2 className="text-sm sm:text-base md:text-xl font-bold cursor-pointer hover:underline">
-          {truncateText(
-            "Your most unhappy customers are your greatest source of learning.",
-            55
-          )}
-        </h2>
+        <Link to={`/blog/:blogId`}>
+          <h2 className="text-sm sm:text-base md:text-xl font-bold cursor-pointer hover:underline">
+            {truncateText(
+              "Your most unhappy customers are your greatest source of learning.",
+              55
+            )}
+          </h2>
+        </Link>
         {/* profile */}
         <div className="flex items-center gap-4">
           <div className="avatar">
