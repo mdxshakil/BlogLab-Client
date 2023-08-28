@@ -1,12 +1,12 @@
-import carousel from "../assets/images/fantasy-2049567_1280.jpg";
+import carousel from "../../assets/images/fantasy-2049567_1280.jpg";
 import {
   AiOutlineComment,
   AiOutlineLike,
   AiOutlineDislike,
   AiOutlineShareAlt,
 } from "react-icons/ai";
-import AddToBookmark from "./utilityComponents/AddToBookmark";
-import { truncateText } from "../utils/textTruncate";
+import AddToBookmark from "./AddToBookmark";
+import { truncateText } from "../../utils/textTruncate";
 import { Link } from "react-router-dom";
 
 const BlogCard = () => {
@@ -55,29 +55,29 @@ const BlogCard = () => {
         {/* like dislike comment */}
         <div className="flex flex-wrap items-center text-sm gap-4 justify-around py-3">
           <button
-            className="flex gap-1 items-center text-sm cursor-pointer hover:text-blue-600 hover:font"
-            title="like"
+            className="flex gap-1 items-center text-sm cursor-pointer hover:text-blue-600 hover:font tooltip"
+            data-tip="Like"
           >
             <AiOutlineLike />
             <span>123</span>
           </button>
           <button
-            className="flex gap-1 items-center text-[12px] md:text-sm cursor-pointer hover:text-red-600 hover:font"
-            title="dislike"
+            className="flex gap-1 items-center text-[12px] md:text-sm cursor-pointer hover:text-red-600 hover:font tooltip"
+            data-tip="Dislike"
           >
             <AiOutlineDislike />
             <span>32</span>
           </button>
           <button
-            className="flex gap-1 items-center text-[12px] md:text-sm cursor-pointer hover:text-green-600 hover:font"
-            title="comment"
+            className="flex gap-1 items-center text-[12px] md:text-sm cursor-pointer hover:text-green-600 hover:font tooltip"
+            data-tip="Comment"
           >
             <AiOutlineComment />
             <span>45</span>
           </button>
           <button
-            className="flex gap-1 items-center text-[12px] md:text-sm cursor-pointer hover:text-orange-600 hover:font"
-            title="share"
+            className="flex gap-1 items-center text-[12px] md:text-sm cursor-pointer hover:text-orange-600 hover:font tooltip"
+            data-tip="Share"
           >
             <AiOutlineShareAlt />
           </button>

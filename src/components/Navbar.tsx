@@ -1,10 +1,32 @@
 import logo from "../assets/images/logo.png";
 import ThemeChanger from "./ThemeChanger";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  //navbar scroll changeBackground function
+  const changeBackground = () => {
+    if (window.scrollY >= 65) {
+      setIsScrolling(true);
+    } else {
+      setIsScrolling(false);
+    }
+  };
+
+  useEffect(() => {
+    changeBackground();
+    // adding the event when scroll change background
+    window.addEventListener("scroll", changeBackground);
+  });
+
   return (
-    <div className="navbar bg-base-100 sticky top-0 z-50">
+    <div
+      className={`navbar ${
+        isScrolling ? "top-0 bg-none backdrop-blur-3xl" : "top-3 bg-base-300"
+      }  sticky z-50 rounded-lg px-6`}
+    >
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">

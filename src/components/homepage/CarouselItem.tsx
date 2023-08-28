@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import carousel from "../assets/images/fantasy-2049567_1280.jpg";
-import { truncateText } from "../utils/textTruncate";
-import AddToBookmark from "./utilityComponents/AddToBookmark";
+import carousel from "../../assets/images/fantasy-2049567_1280.jpg";
+import AddToBookmark from "../shared/AddToBookmark";
+import { truncateText } from "../../utils/textTruncate";
 
 type IProps = {
   name: string;
@@ -9,7 +9,7 @@ type IProps = {
 const CarouselItem = ({ name }: IProps) => {
   return (
     <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 p-12 ">
-      <div>
+      <div className="order-last lg:order-first">
         <img
           src={carousel}
           alt=""

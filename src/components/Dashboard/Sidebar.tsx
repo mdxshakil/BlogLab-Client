@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { BiArrowFromRight, BiSolidDashboard } from "react-icons/bi";
+import { BiArrowFromRight, BiSolidDashboard, BiLogOut } from "react-icons/bi";
 import { RxAvatar } from "react-icons/rx";
 import { ReactNode, useState } from "react";
 import logo from "../../assets/images/brand-icon.png";
@@ -30,12 +30,12 @@ const Sidebar = ({ children }: IProps) => {
   ];
 
   return (
-    <div className="flex px-2 gap-4">
+    <div className="flex px-2 gap-2">
       {/* sidebar */}
       <div
         className={`${
           open ? "w-44" : "w-16"
-        } bg-base-300 h-[88dvh] px-1 duration-300 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-lg`}
+        } relative bg-base-300 h-[88dvh] px-1 duration-300 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-lg`}
       >
         {/* sidebar logo and collapse button */}
         <div
@@ -76,10 +76,16 @@ const Sidebar = ({ children }: IProps) => {
             </Link>
           ))}
         </div>
+        <div className="absolute bottom-0 left-0 p-2 w-full">
+          <button className="btn btn-sm w-full border-[1px] hover:border-red-700">
+            <BiLogOut className="text-2xl text-red-700" />
+            <span className={`${!open && "hidden"}`}>Logout</span>
+          </button>
+        </div>
       </div>
 
       {/* content goes here */}
-      <div className="bg-base-300 rounded-lg h-[88dvh] w-full overflow-y-auto ">
+      <div className="bg-base-200 rounded-lg h-[88dvh] w-full overflow-y-auto ">
         <div className="p-4">{children}</div>
       </div>
     </div>
