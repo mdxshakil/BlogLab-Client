@@ -11,7 +11,7 @@ const AskToSignUp = () => {
         <button className="btn btn-primary btn-sm">Sign up now</button>
         <p>
           Already a member?{" "}
-          <span className="text-primary font-bold cursor-pointer">Sign in</span>{" "}
+          <span className="text-primary font-bold cursor-pointer">Sign in</span>
         </p>
       </div>
     </div>

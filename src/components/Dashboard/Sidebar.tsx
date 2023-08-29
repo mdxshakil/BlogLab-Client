@@ -30,7 +30,7 @@ const Sidebar = ({ children }: IProps) => {
   ];
 
   return (
-    <div className="flex px-2 gap-2">
+    <div className="flex px-2 gap-2 py-12">
       {/* sidebar */}
       <div
         className={`${

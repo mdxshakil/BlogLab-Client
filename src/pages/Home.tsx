@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="pb-12">
       <Carousel />
-      <div className="flex flex-col lg:flex-row gap-6 py-12">
+      <div className="flex flex-col lg:flex-row gap-6">
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 w-full">
           <BlogCard />
           <BlogCard />
