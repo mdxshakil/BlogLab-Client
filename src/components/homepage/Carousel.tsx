@@ -17,10 +17,10 @@ const Carousel = () => {
       <h1 className="text-4xl font-bold text-center">Trending Blogs</h1>
       <div className="w-full">
         <Slider {...settings}>
-          <CarouselItem name="bbbbbbbbbb" />
-          <CarouselItem name="aaaaaaaaaaa" />
-          <CarouselItem name="cccccccccc" />
-          <CarouselItem name="dddddddddd" />
+          <CarouselItem />
+          <CarouselItem />
+          <CarouselItem />
+          <CarouselItem />
         </Slider>
       </div>
     </div>

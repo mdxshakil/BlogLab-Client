@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import carousel from "../../assets/images/fantasy-2049567_1280.jpg";
-import AddToBookmark from "../shared/AddToBookmark";
 import { truncateText } from "../../utils/textTruncate";
+import BookmarkBtn from "../shared/BookmarkBtn";
+import CategoryBtn from "../shared/CategoryBtn";
+import AuthorAvatar from "../shared/AuthorAvatar";
+import { AiOutlineCalendar } from "react-icons/ai";
 
-type IProps = {
-  name: string;
-};
-const CarouselItem = ({ name }: IProps) => {
+const CarouselItem = () => {
   return (
     <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 p-12 ">
       <div className="order-last lg:order-first">
@@ -17,12 +17,7 @@ const CarouselItem = ({ name }: IProps) => {
         />
       </div>
       <div className="flex flex-col justify-center gap-2 md:gap-4">
-        <p>
-          <span className="font-bold bg-primary bg-opacity-50 rounded-full px-2">
-            Business Travel
-          </span>
-          <span className="text-gray-500"> - July 2, 2020</span>
-        </p>
+        <CategoryBtn category="art" />
         <Link to={`/blog/:blogId`}>
           <h2 className="text-xl md:text-4xl font-bold cursor-pointer hover:underline">
             {truncateText(
@@ -31,27 +26,16 @@ const CarouselItem = ({ name }: IProps) => {
             )}
           </h2>
         </Link>
-        {/* <p className="text-sm text-justify text-gray-500">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-          dignissimos laboriosam sapiente fugiat asperiores. Maiores neque
-          consectetur rem doloribus assumenda ......
-        </p> */}
-        <div>
-          <AddToBookmark />
+        <div className="flex">
+          <BookmarkBtn />
+          <p className="text-gray-500 text-sm flex items-center gap-1">
+            <span>
+              <AiOutlineCalendar />
+            </span>
+            <span>July 2, 2020</span>
+          </p>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="avatar">
-            <div className="w-10 rounded-full">
-              <img src="https://static.vecteezy.com/system/resources/previews/019/896/008/original/male-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png" />
-            </div>
-          </div>
-          <div>
-            <h6 className="font-bold text-sm md:text-base">{name}</h6>
-            <p className="text-gray-500 text-[12px] md:text-sm">
-              CEO and Founder
-            </p>
-          </div>
-        </div>
+        <AuthorAvatar />
       </div>
     </div>
   );

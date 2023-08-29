@@ -5,7 +5,7 @@ import {
   AiOutlineDislike,
   AiOutlineShareAlt,
 } from "react-icons/ai";
-import AddToBookmark from "./AddToBookmark";
+import AddToBookmark from "./BookmarkBtn";
 import { truncateText } from "../../utils/textTruncate";
 import { Link } from "react-router-dom";
 

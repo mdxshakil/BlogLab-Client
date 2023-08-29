@@ -22,7 +22,7 @@ const Navbar = () => {
   });
 
   return (
-    <div
+    <nav
       className={`navbar ${
         isScrolling ? "top-0 bg-none backdrop-blur-3xl" : "top-3 bg-base-300"
       }  sticky z-50 rounded-lg px-6`}
@@ -131,7 +131,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

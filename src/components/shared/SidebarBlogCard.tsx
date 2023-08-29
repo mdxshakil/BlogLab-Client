@@ -4,7 +4,7 @@ import cardImage from "../../assets/images/fantasy-2049567_1280.jpg";
 
 import { AiOutlineCalendar } from "react-icons/ai";
 
-const FeaturedPostCard = () => {
+const SidebarBlogCard = () => {
   return (
     <div className="flex items-center gap-3">
       <img
@@ -22,7 +22,7 @@ const FeaturedPostCard = () => {
           </h3>
         </Link>
         <div className="flex gap-2 items-center">
-          <div className="badge bg-gray-600 bg-opacity-50 gap-2 px-2 py-3">
+          <div className="badge bg-gray-400 dark:bg-gray-600 bg-opacity-50 gap-2 px-2 py-3">
             <div className="bg-red-500 w-2 h-2 rounded-full"></div>
             <span>nature</span>
           </div>
@@ -38,4 +38,4 @@ const FeaturedPostCard = () => {
   );
 };
 
-export default FeaturedPostCard;
+export default SidebarBlogCard;
