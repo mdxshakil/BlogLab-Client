@@ -1,46 +1,46 @@
-import { Link } from "react-router-dom";
-import cardImage from "../../assets/images/fantasy-2049567_1280.jpg";
-import { truncateText } from "../../utils/textTruncate";
-import AddToBookmark from "../shared/AddToBookmark";
+import carousel from "../../assets/images/fantasy-2049567_1280.jpg";
 import {
   AiOutlineComment,
   AiOutlineLike,
   AiOutlineDislike,
   AiOutlineShareAlt,
-  AiOutlineCalendar,
 } from "react-icons/ai";
+import AddToBookmark from "./AddToBookmark";
+import { truncateText } from "../../utils/textTruncate";
+import { Link } from "react-router-dom";
 
 const BlogCard = () => {
   return (
-    <div className="flex flex-col md:flex-row items-start lg:items-center gap-6 bg-base-300 shadow-xl rounded-lg p-8">
-      <img
-        src={cardImage}
-        alt="Movie"
-        className="rounded-lg sm:w-full md:w-1/2 h-full object-cover"
-      />
-      <div className="flex flex-col justify-center gap-2 md:gap-4">
-        <div className="badge bg-gray-600 bg-opacity-50 gap-2 px-3 py-4">
-          <div className="bg-red-500 w-2 h-2 rounded-full"></div>
-          nature
+    <div className="grid items-center grid-cols-1 gap-2 md:gap-6 border-base-300 border-b-[1px]">
+      <div>
+        <img
+          src={carousel}
+          alt=""
+          className="rounded-lg object-cover w-[100%]"
+        />
+      </div>
+      <div className="flex flex-col justify-center gap-2">
+        <div>
+          <span className="text-[10px] md:text-sm font-bold bg-primary bg-opacity-50 rounded-full px-2 w-auto">
+            Business Travel
+          </span>
+          <span> - </span>
+          <span className="text-[10px] md:text-sm text-gray-500 w-auto">
+            July 2, 2020
+          </span>
+        </div>
+        <div>
+          <AddToBookmark />
         </div>
         <Link to={`/blog/:blogId`}>
-          <h2 className="text-xl md:text-3xl font-[700] cursor-pointer hover:underline">
+          <h2 className="text-sm sm:text-base md:text-xl font-bold cursor-pointer hover:underline">
             {truncateText(
-              "Autumn is a second spring when every leaf is a flower",
-              65
+              "Your most unhappy customers are your greatest source of learning.",
+              55
             )}
           </h2>
         </Link>
-
-        <div className="flex items-center gap-3">
-          <AddToBookmark />
-          <p className="text-gray-500 text-sm flex items-center gap-1">
-            <span>
-              <AiOutlineCalendar />
-            </span>
-            <span>July 2, 2020</span>
-          </p>
-        </div>
+        {/* profile */}
         <div className="flex items-center gap-4">
           <div className="avatar">
             <div className="w-8 rounded-full">
@@ -48,11 +48,12 @@ const BlogCard = () => {
             </div>
           </div>
           <div>
-            <h6 className="font-bold text-sm">Shakil Ahmed</h6>
-            <p className="text-gray-500 text-[12px] md:text-sm">Newbie</p>
+            <h6 className="font-bold text-[12px]">Shakil Ahmed</h6>
+            <p className="text-gray-500 text-[12px]">CEO and Founder</p>
           </div>
         </div>
-        <div className="flex flex-wrap items-center text-sm gap-6 mt-4 md:mt-0">
+        {/* like dislike comment */}
+        <div className="flex flex-wrap items-center text-sm gap-4 justify-around py-3">
           <button
             className="flex gap-1 items-center text-sm cursor-pointer hover:text-blue-600 hover:font tooltip"
             data-tip="Like"
