@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { toggleTheme } from "../redux/features/theme/themeSlice";
+import { useThemeMode } from "../hooks/useThemeMode";
 
 function ThemeChanger() {
   const { themeMode } = useAppSelector((state) => state.theme);
@@ -12,12 +12,7 @@ function ThemeChanger() {
     localStorage.setItem("theme", newThemeMode);
   };
 
-  useEffect(() => {
-    const htmlElement = document.querySelector("html");
-    if (htmlElement) {
-      htmlElement.setAttribute("data-theme", themeMode);
-    }
-  }, [themeMode]);
+  useThemeMode();
 
   return (
     <label className="swap swap-rotate">

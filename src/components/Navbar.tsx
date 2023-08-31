@@ -103,7 +103,9 @@ const Navbar = () => {
         <div className="flex gap-3 items-center ">
           <ThemeChanger />
           <div>
-            <button className="btn btn-sm">Login</button>
+            <Link to="/login">
+              <button className="btn btn-sm">Login</button>
+            </Link>
           </div>
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
