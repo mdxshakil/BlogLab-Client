@@ -1,8 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
-import { BiArrowFromRight, BiSolidDashboard, BiLogOut } from "react-icons/bi";
+import { BiArrowFromRight, BiSolidDashboard } from "react-icons/bi";
 import { RxAvatar } from "react-icons/rx";
 import { ReactNode, useState } from "react";
-import logo from "../../assets/images/brand-icon.png";
 
 type IProps = {
   children: ReactNode;
@@ -16,41 +15,35 @@ const Sidebar = ({ children }: IProps) => {
     {
       id: 1,
       path: "/dashboard",
-      icon: <BiSolidDashboard className="text-xl" />,
+      icon: <BiSolidDashboard className="text-sm md:text-xl" />,
       label: "Dashboard",
       isActive: location === "/dashboard",
     },
     {
       id: 2,
       path: "/dashboard/profile",
-      icon: <RxAvatar className="text-xl" />,
+      icon: <RxAvatar className="text-sm md:text-xl" />,
       label: "Profile",
       isActive: location === "/dashboard/profile",
     },
   ];
 
   return (
-    <div className="flex px-2 gap-2 py-12">
+    <div className="flex px-2 py-6">
       {/* sidebar */}
       <div
         className={`${
-          open ? "w-44" : "w-16"
+          open ? "w-44" : "w-8"
         } relative bg-base-300 h-[88dvh] px-1 duration-300 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-lg`}
       >
-        {/* sidebar logo and collapse button */}
+        {/* sidebar collapse button */}
         <div
           className={`flex ${
             !open && "flex-col"
-          } gap-4 items-center justify-around px-2 pt-4`}
+          } items-center justify-around px-2 pt-4`}
         >
-          <Link to={"/"}>
-            <img
-              src={logo}
-              className="cursor-pointer duration-500 w-10 filter dark:invert dark:hue-rotate-180"
-            />
-          </Link>
           <BiArrowFromRight
-            className={`cursor-pointer text-3xl duration-500 ${
+            className={`cursor-pointer text-xl md:text-3xl duration-500 ${
               !open && "rotate-180"
             }`}
             onClick={() => setOpen(!open)}
@@ -70,17 +63,13 @@ const Sidebar = ({ children }: IProps) => {
               }`}
             >
               {link.icon}
-              <span className={`${open ? "text-sm" : "text-[9px]"}`}>
-                {link.label}
-              </span>
+              {open && (
+                <span className={`${open ? "text-sm" : "text-[6px]"}`}>
+                  {link.label}
+                </span>
+              )}
             </Link>
           ))}
-        </div>
-        <div className="absolute bottom-0 left-0 p-2 w-full">
-          <button className="btn btn-sm w-full border-[1px] hover:border-red-700">
-            <BiLogOut className="text-2xl text-red-700" />
-            <span className={`${!open && "hidden"}`}>Logout</span>
-          </button>
         </div>
       </div>
 

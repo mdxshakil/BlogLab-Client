@@ -3,6 +3,7 @@ import { truncateText } from "../../utils/textTruncate";
 import cardImage from "../../assets/images/fantasy-2049567_1280.jpg";
 
 import { AiOutlineCalendar } from "react-icons/ai";
+import CategoryBtn from "./CategoryBtn";
 
 const SidebarBlogCard = () => {
   return (
@@ -10,11 +11,11 @@ const SidebarBlogCard = () => {
       <img
         src={cardImage}
         alt=""
-        className="rounded-lg w-[28%] h-20 object-cover"
+        className="rounded-lg w-[28%] h-16 md:h-20 object-cover"
       />
       <div>
         <Link to={`/blog/2`}>
-          <h3 className="font-bold text-sm pb-3 hover:underline">
+          <h3 className="font-bold text-[12px] md:text-sm pb-3 hover:underline decoration-primary decoration-1">
             {truncateText(
               "Never let your memories to be greater than your dreams",
               50
@@ -22,10 +23,7 @@ const SidebarBlogCard = () => {
           </h3>
         </Link>
         <div className="flex gap-2 items-center">
-          <div className="badge bg-gray-400 dark:bg-gray-600 bg-opacity-50 gap-2 px-2 py-3">
-            <div className="bg-red-500 w-2 h-2 rounded-full"></div>
-            <span>nature</span>
-          </div>
+          <CategoryBtn category="travel" />
           <p className="text-gray-500 text-sm flex items-center gap-1">
             <span>
               <AiOutlineCalendar />

@@ -2,6 +2,7 @@ import BlogDetailsCard from "../components/blogDetails/BlogDetailsCard";
 import ShareArticle from "../components/blogDetails/ShareArticle";
 import Sidebar from "../components/shared/Sidebar";
 import MemberDiscussion from "../components/blogDetails/MemberDiscussion";
+import ProfileCard from "../components/blogDetails/ProfileCard";
 
 const BlogDetails = () => {
   return (
@@ -12,7 +13,9 @@ const BlogDetails = () => {
           <ShareArticle />
           <MemberDiscussion />
         </div>
-        <Sidebar title="Related posts" />
+        <Sidebar title="More from shakil">
+          <ProfileCard />
+        </Sidebar>
       </div>
     </section>
   );

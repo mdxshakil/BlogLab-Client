@@ -7,20 +7,22 @@ const Home = () => {
     <div className="pb-12">
       <Carousel />
       <div className="flex flex-col lg:flex-row gap-6">
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 w-full">
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
+        <div>
+          <div className="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-1 gap-3 md:gap-6 w-full px-2 md:px-0">
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+          </div>
           {/* pagination start */}
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-6">
             <div className="join">
               <button className="join-item btn bg-base-300">«</button>
               <button className="join-item btn bg-base-300">Page 22</button>

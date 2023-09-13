@@ -1,10 +1,23 @@
-import logo from "../assets/images/logo.png";
+import darkLogo from "../assets/images/logo-dark.png";
+import lightLogo from "../assets/images/logo-light.png";
 import ThemeChanger from "./ThemeChanger";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { AiOutlineMenu } from "react-icons/ai";
+import { userLoggedOut } from "../redux/features/auth/authSlice";
 
 const Navbar = () => {
   const [isScrolling, setIsScrolling] = useState(false);
+  const { themeMode } = useAppSelector((state) => state.theme);
+  const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("auth");
+    dispatch(userLoggedOut());
+  };
 
   //navbar scroll changeBackground function
   const changeBackground = () => {
@@ -25,25 +38,12 @@ const Navbar = () => {
     <nav
       className={`navbar ${
         isScrolling ? "top-0 bg-none backdrop-blur-3xl" : "top-3 bg-base-300"
-      }  sticky z-50 rounded-lg px-6`}
+      }  sticky z-50 rounded-lg px-2 md:px-6`}
     >
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
+            <AiOutlineMenu className="h-5 w-5" />
           </label>
           <ul
             tabIndex={0}
@@ -70,9 +70,10 @@ const Navbar = () => {
         </div>
         <Link to="/">
           <img
-            src={logo}
+            src={themeMode === "dark" ? darkLogo : lightLogo}
             alt="BlogLab"
-            className="h-4 w-30 md:h-6 md:w-42 dark:invert dark:hue-rotate-180"
+            // className="h-4 w-30 md:h-6 md:w-42"
+            className="w-3/4 md:w-2/5"
           />
         </Link>
       </div>
@@ -102,35 +103,55 @@ const Navbar = () => {
       <div className="navbar-end">
         <div className="flex gap-3 items-center ">
           <ThemeChanger />
-          <div>
-            <Link to="/login">
-              <button className="btn btn-sm">Login</button>
-            </Link>
-          </div>
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="sm:w-8 md:w-10 rounded-full">
-                <img src="https://static.vecteezy.com/system/resources/previews/019/896/008/original/male-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png" />
-              </div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <Link to={"/dashboard"} className="justify-between">
-                  Dashboard
-                  <span className="badge">New</span>
-                </Link>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-            </ul>
-          </div>
+          {!user.email ? (
+            <div>
+              <Link to="/login">
+                <button className="btn btn-sm btn-primary">Login</button>
+              </Link>
+            </div>
+          ) : (
+            <div className="dropdown dropdown-end">
+              <label
+                tabIndex={0}
+                className="btn btn-ghost btn-circle btn-sm md:btn-md avatar border-2 border-primary"
+              >
+                <div className="sm:w-8 md:w-10 rounded-full">
+                  <img src="https://static.vecteezy.com/system/resources/previews/019/896/008/original/male-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png" />
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <Link to={"/dashboard"} className="justify-between">
+                    Dashboard
+                    <span className="badge">New</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/create-new-blog"}>New Blog</Link>
+                </li>
+                <li>
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
+              </ul>
+            </div>
+          )}
+          {user && user.role === "blogger" && (
+            <div>
+              <button
+                className="btn btn-sm btn-primary"
+                disabled={
+                  user.accountStatus === "pending" ||
+                  user.accountStatus === "blocked"
+                }
+                onClick={() => navigate("/create-new-blog")}
+              >
+                Post blog
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </nav>

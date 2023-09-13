@@ -1,6 +1,8 @@
 import CategoryBtn from "../../components/shared/CategoryBtn";
 import detailsImage from "../../assets/images/fantasy-2049567_1280.jpg";
 import {
+  AiFillDelete,
+  AiFillEdit,
   AiOutlineCalendar,
   AiOutlineDislike,
   AiOutlineLike,
@@ -8,27 +10,58 @@ import {
 import AddToBookmark from "../shared/BookmarkBtn";
 import AuthorAvatar from "../shared/AuthorAvatar";
 
-const BlogDetailsCard = () => {
+type IProps = {
+  isModal?: boolean;
+};
+
+const BlogDetailsCard = (props: IProps) => {
+  const { isModal } = props;
   return (
     <div className="bg-base-300 p-6 lg:p-12 rounded-lg">
       <div>
-        <img
-          src={detailsImage}
-          alt=""
-          className="w-full object-cover h-40 md:h-64 rounded-lg shadow-lg"
-        />
-        <div className="mt-6">
-          <CategoryBtn category="nature" />
-          <h1 className="text-xl md:text-3xl lg:text-4xl font-semibold pb-2">
+        {/* title, mage and date */}
+        <div>
+          <div className="flex items-center gap-4">
+            <CategoryBtn category="nature" />
+            <p className="text-gray-500 text-sm flex items-center gap-1 mb-2">
+              <span>
+                <AiOutlineCalendar />
+              </span>
+              <span>July 2, 2020</span>
+            </p>
+          </div>
+          <h1 className="text-xl md:text-3xl lg:text-4xl font-semibold mb-6">
             Dramatically improve your cooking using just your imagination
           </h1>
-          <AuthorAvatar />
+          <img
+            src={detailsImage}
+            alt=""
+            className="w-full object-cover h-40 md:h-64 rounded-lg shadow-lg"
+          />
+        </div>
+        <div className="mt-6">
+          {/* avater, edit and delete button */}
+          <div className="flex items-center justify-between">
+            <AuthorAvatar />
+            <div className="flex gap-4">
+              <button className="text-base md:text-xl text-primary border rounded-full p-[2px] border-gray-500 hover:border-primary">
+                <AiFillEdit />
+              </button>
+              <button className="text-base md:text-xl text-error border rounded-full p-[2px] border-gray-500 hover:border-error">
+                <AiFillDelete />
+              </button>
+            </div>
+          </div>
           {/* action buttons */}
-          <div className="md:py-2">
+          <div className="">
+            <div className="flex items-center gap-3 my-2">
+              {!isModal && <AddToBookmark />}
+            </div>
             <div className="flex flex-wrap items-center text-sm gap-6 mt-4 md:mt-0">
               <button
                 className="flex gap-1 items-center text-sm cursor-pointer hover:text-blue-600 hover:font tooltip"
                 data-tip="Like"
+                disabled={isModal}
               >
                 <AiOutlineLike />
                 <span>123</span>
@@ -36,21 +69,14 @@ const BlogDetailsCard = () => {
               <button
                 className="flex gap-1 items-center text-[12px] md:text-sm cursor-pointer hover:text-red-600 hover:font tooltip"
                 data-tip="Dislike"
+                disabled={isModal}
               >
                 <AiOutlineDislike />
                 <span>32</span>
               </button>
             </div>
-            <div className="flex items-center gap-3 py-2">
-              <p className="text-gray-500 text-sm flex items-center gap-1">
-                <span>
-                  <AiOutlineCalendar />
-                </span>
-                <span>July 2, 2020</span>
-              </p>
-              <AddToBookmark />
-            </div>
           </div>
+          <div className="divider m-0"></div>
           <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates
             qui sit aperiam, consectetur iure ex totam! Iure rem et inventore

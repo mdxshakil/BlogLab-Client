@@ -6,6 +6,7 @@ import Home from "../pages/Home";
 import BlogDetails from "../pages/BlogDetails";
 import Dashboard from "../layout/Dashboard";
 import Profile from "../pages/dasboard/Profile";
+import CreateBlog from "../pages/CreateBlog";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/blog/:blogId",
         element: <BlogDetails />,
+      },
+      {
+        path: "/create-new-blog",
+        element: <CreateBlog />,
       },
     ],
   },
