@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  accessToken: "",
   user: {
     email: "",
     accountStatus: "",
@@ -15,12 +14,11 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     userLoggedIn: (state, action) => {
+      // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
       const { accessToken, ...userInfo } = action.payload;
-      state.accessToken = accessToken;
       state.user = userInfo;
     },
     userLoggedOut: (state) => {
-      state.accessToken = "";
       state.user = {
         email: "",
         accountStatus: "",

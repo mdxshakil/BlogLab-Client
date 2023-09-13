@@ -15,7 +15,6 @@ import toast from "react-hot-toast";
 const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  // apply current theme to the page
   const {
     register,
     handleSubmit,
@@ -38,6 +37,7 @@ const Login = () => {
     }
   }, [isError, isSuccess, navigate, error]);
 
+  // apply current theme to the page
   useThemeMode();
   return (
     <section className="min-h-screen flex items-center justify-center">

@@ -33,6 +33,21 @@ const authApi = api.injectEndpoints({
         }
       },
     }),
+    persistLogin: builder.query({
+      query: (payload) => ({
+        url: "/auth/persist-login",
+        method: "GET",
+        body: payload,
+      }),
+      async onQueryStarted(_data, { dispatch, queryFulfilled }) {
+        try {
+          const result = await queryFulfilled;
+          dispatch(userLoggedIn(result.data.data));
+        } catch (error) {
+          // nothing to do here
+        }
+      },
+    }),
     getSingleBook: builder.query({
       query: (id) => ({
         url: `/book/${id}`,
@@ -42,5 +57,9 @@ const authApi = api.injectEndpoints({
   }),
 });
 
-export const { useSignupMutation, useLoginMutation, useGetSingleBookQuery } =
-  authApi;
+export const {
+  useSignupMutation,
+  useLoginMutation,
+  usePersistLoginQuery,
+  useGetSingleBookQuery,
+} = authApi;

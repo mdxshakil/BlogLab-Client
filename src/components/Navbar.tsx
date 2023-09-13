@@ -130,9 +130,6 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to={"/create-new-blog"}>New Blog</Link>
-                </li>
-                <li>
                   <button onClick={handleLogout}>Logout</button>
                 </li>
               </ul>

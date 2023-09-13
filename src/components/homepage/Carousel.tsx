@@ -14,7 +14,7 @@ const Carousel = () => {
   };
   return (
     <div className="min-h-[88dvh] flex flex-col items-center justify-center bg-base-300 rounded-[15px] my-12">
-      <h1 className="text-4xl font-bold text-center">Trending Blogs</h1>
+      <h1 className="text-4xl font-bold text-center">Featured Blogs</h1>
       <div className="w-full">
         <Slider {...settings}>
           <CarouselItem />
