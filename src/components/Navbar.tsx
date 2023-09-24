@@ -113,7 +113,11 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label
                 tabIndex={0}
-                className="btn btn-ghost btn-circle btn-sm md:btn-md avatar border-2 border-primary"
+                className={`btn btn-ghost btn-circle btn-sm md:btn-md avatar border-2 ${
+                  user?.role === "reader"
+                    ? "border-primary"
+                    : "border-secondary"
+                }`}
               >
                 <div className="sm:w-8 md:w-10 rounded-full">
                   <img src="https://static.vecteezy.com/system/resources/previews/019/896/008/original/male-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png" />

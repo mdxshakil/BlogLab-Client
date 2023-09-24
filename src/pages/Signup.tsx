@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useThemeMode } from "../hooks/useThemeMode";
 import TermsCheckbox from "../components/auth/TermsCheckbox";
 import SubmitBtn from "../components/auth/SubmitBtn";
@@ -10,56 +11,44 @@ import { useEffect, useState } from "react";
 import TextField from "../components/auth/TextField";
 import RoleInput from "../components/auth/RoleInput";
 import { useSignupMutation } from "../redux/features/auth/authApi";
-import { useGetAllCategoryQuery } from "../redux/features/category/categoryApi";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import ProfileImageInput from "../components/auth/ProfileImageInput";
+import SelectFavouriteCategories from "../components/auth/SelectFavouriteCategories";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [profileImage, setProfileImage] = useState<any>();
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [signUp, { isLoading, isSuccess, isError, error }] =
     useSignupMutation();
-  const { data: categories, isLoading: categoryLoading } =
-    // eslint-disable-next-line no-undefined
-    useGetAllCategoryQuery(undefined);
-  const [selectedCategories, setSelectedCategories] = useState<
-    Array<{
-      categoryId: string;
-    }>
-  >([]);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleCategorySelection = (chosenId: string) => {
-    const isSelected = selectedCategories.find(
-      (category) => category.categoryId === chosenId
-    );
-    if (isSelected) {
-      const remainingCategories = selectedCategories.filter(
-        (category) => category.categoryId !== chosenId
-      );
-      setSelectedCategories(remainingCategories);
-    } else {
-      setSelectedCategories((prevCategories) => [
-        ...prevCategories,
-        { categoryId: chosenId },
-      ]);
-    }
-  };
-
   const onSubmit = async (data: FieldValues) => {
-    const signupData = {
-      ...data,
-      favouriteCategories: selectedCategories,
-    };
+    const formData = new FormData();
+    if (data.password !== data.confirmPassword) {
+      toast.error("Password and Confirm Password do not match");
+      return; // Don't proceed with the signup if passwords don't match
+    }
+    formData.append("profilePicture", profileImage);
+    formData.append("firstName", data.firstName);
+    formData.append("lastName", data.lastName);
+    formData.append("email", data.email);
+    formData.append("contactNo", data.contactNo);
+    formData.append("password", data.password);
+    formData.append("role", data.role);
+    // Append selectedCategories to the formData
+    selectedCategories.forEach((category) => {
+      formData.append("favouriteCategories", category as string);
+    });
     if (selectedCategories.length < 2) {
       toast.error("Atleast 2 category must be selected");
     } else {
-      signUp(signupData);
+      await signUp(formData);
     }
   };
 
@@ -69,7 +58,6 @@ const Signup = () => {
       navigate("/login");
     }
     if (isError) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       toast.error((error as any)?.data?.message);
     }
   }, [isError, isSuccess, navigate, error]);
@@ -89,6 +77,11 @@ const Signup = () => {
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <ProfileImageInput
+                register={register}
+                errors={errors}
+                setProfileImage={setProfileImage}
+              />
               <TextField
                 register={register}
                 errors={errors}
@@ -123,18 +116,12 @@ const Signup = () => {
               errors={errors}
               name="password"
               placeholder="Password"
-              showPassword={showPassword}
-              setShowPassword={setShowPassword}
-              isPasswordField={true}
             />
             <PasswordField
               register={register}
               errors={errors}
               name="confirmPassword"
               placeholder="Confirm Password"
-              showConfirmPassword={showConfirmPassword}
-              setShowConfirmPassword={setShowConfirmPassword}
-              isConfirmPasswordField={true}
             />
             <div>
               <h3 className="font-medium mb-2">Select your role:</h3>
@@ -153,42 +140,16 @@ const Signup = () => {
                 />
               </ul>
             </div>
-            {/* select favourite categories */}
             <div>
-              <h3 className="font-semibold text-center mb-3">
-                Select favourite categories:
-              </h3>
-              <div className="flex items-center justify-center flex-wrap gap-3">
-                {categoryLoading && (
-                  <span className="loading loading-spinner"></span>
-                )}
-                {categories?.data?.map(
-                  (category: { id: string; title: string }) => {
-                    const isSelected = selectedCategories.find(
-                      (item) => item.categoryId === category.id
-                    );
-                    return (
-                      <p
-                        key={category?.id}
-                        className={`py-2 px-3 rounded-full cursor-pointer ${
-                          isSelected
-                            ? "bg-primary text-base-100"
-                            : "bg-base-100"
-                        }`}
-                        onClick={() => handleCategorySelection(category.id)}
-                      >
-                        {category?.title}
-                      </p>
-                    );
-                  }
-                )}
-              </div>
+              <SelectFavouriteCategories
+                selectedCategories={selectedCategories}
+                setSelectedCategories={setSelectedCategories}
+              />
             </div>
             <TermsCheckbox register={register} errors={errors} />
             <SubmitBtn isLoading={isLoading} />
           </form>
           <div className="divider">or</div>
-
           <GoogleBtn />
           <FormFooter label="Already have an account?" path="/login" />
         </div>

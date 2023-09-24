@@ -1,61 +1,109 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
-import { FormEvent, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiTwotoneEdit, AiTwotoneEye } from "react-icons/ai";
 import CategoryInput from "../components/createBlog/CategoryInput";
 import VisibilityInput from "../components/createBlog/VisibilityInput";
 import PreviewModal from "../components/createBlog/PreviewModal";
+import { useGetAllCategoryQuery } from "../redux/features/category/categoryApi";
+import { ICategory, IPreviewBlog } from "../interface";
+import CategoryLoader from "../components/createBlog/CategoryLoader";
+import { FieldValues, useForm } from "react-hook-form";
+import { useCreateNewBlogMutation } from "../redux/features/blog/blogApi";
+import { QuillModules } from "../constants";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 // import DOMPurify from "dompurify";
 
 const CreateBlog = () => {
-  const [preview, setPreview] = useState(false);
-  const [value, setValue] = useState("");
-  const [coverImg, setCoverImg] = useState<string>("");
+  const [previewBlog, setPreviewBlog] = useState(false);
+  const [previewData, setPreviewData] = useState<IPreviewBlog>({
+    title: "",
+    content: "",
+    banner: "",
+    category: "",
+  });
 
-  const modules = {
-    toolbar: [
-      [{ font: [] }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "strike"],
-      [{ color: [] }, { background: [] }],
-      [{ script: "sub" }, { script: "super" }],
-      ["blockquote", "code-block"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ indent: "-1" }, { indent: "+1" }, { align: [] }],
-      ["link", "video"],
-      ["clean"],
-    ],
-  };
+  const [bannerImg, setBannerImg] = useState<any>();
+  const [previewBannerImg, setPreviewBannerImg] = useState<string>();
+  const { data: categories, isLoading } = useGetAllCategoryQuery("");
+  const [content, setContent] = useState("");
+  const navigate = useNavigate();
+  const [createBlog, createBlogStatus] = useCreateNewBlogMutation();
+  const {
+    register,
+    handleSubmit,
+    // formState: { errors },
+    getValues,
+  } = useForm();
 
   const handlePreviewModal = () => {
-    setPreview(!preview);
+    const data = {
+      title: getValues("title"),
+      content,
+      category: getValues("category"),
+      visibility: getValues("visibility"),
+      banner: previewBannerImg,
+    };
+    setPreviewData(data as IPreviewBlog);
+    setPreviewBlog(!previewBlog);
   };
 
-  const handleCoverImageSelection = (event: FormEvent) => {
-    const file = (event.target as HTMLInputElement)?.files?.[0];
-    if (file) {
-      setCoverImg(URL.createObjectURL(file));
+  const handleBannerImageSelection = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const selectedImage = event.target.files?.[0];
+    if (selectedImage) {
+      setBannerImg(selectedImage);
+      const objectUrl = URL.createObjectURL(selectedImage);
+      setPreviewBannerImg(objectUrl);
     }
   };
 
+  const onSubmit = async (data: FieldValues) => {
+    const formData = new FormData();
+
+    formData.append("title", data.title);
+    formData.append("content", content);
+    formData.append("categoryId", data.category);
+    formData.append("visibility", data.visibility);
+    formData.append("banner", bannerImg);
+
+    await createBlog(formData);
+  };
+
+  useEffect(() => {
+    if (createBlogStatus.isError) {
+      toast.error("Failed to create new blog. Try Again!");
+    }
+    if (createBlogStatus.isSuccess) {
+      toast.success("New blog created successfully. Wait for approval!");
+      navigate("/");
+    }
+  }, [createBlogStatus.isSuccess, createBlogStatus.isError, navigate]);
+
   return (
     <div className="py-12 relative">
-      <form className="grid grid-cols-6 gap-6">
+      <form
+        className="grid grid-cols-6 gap-6"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {/* editor */}
         <div className="col-span-6 md:col-span-4">
           <input
             type="text"
-            name=""
             id=""
             placeholder="Your awesome title....."
             className="bg-base-100 border border-gray-600 p-3 rounded-lg w-full mb-3 text-2xl focus:outline-none"
             required
+            {...register("title")}
           />
           <ReactQuill
-            modules={modules}
+            modules={QuillModules}
             theme="snow"
-            value={value}
-            onChange={setValue}
+            value={content}
+            onChange={setContent}
             placeholder="Your awesome content....."
           />
         </div>
@@ -65,26 +113,35 @@ const CreateBlog = () => {
             <h2 className="font-bold text-xl text-primary mb-2">
               Select Category & banner
             </h2>
-            <CategoryInput id="art" label="Art" />
-            <CategoryInput id="travel" label="Travel" />
-            <CategoryInput id="science" label="Science" />
-            <CategoryInput id="programming" label="Programming" />
-            <CategoryInput id="food" label="Food" />
+            {isLoading ? (
+              <CategoryLoader />
+            ) : (
+              categories?.data?.map((category: ICategory) => (
+                <CategoryInput
+                  key={category?.id}
+                  id={category?.id}
+                  label={category?.title}
+                  register={register}
+                  value={category.id}
+                />
+              ))
+            )}
             <div>
-              {coverImg && (
+              {bannerImg && (
                 <img
-                  src={coverImg}
+                  src={previewBannerImg}
                   alt=""
                   className="w-full object-cover my-2 rounded-lg"
                 />
               )}
               <input
                 type="file"
-                name=""
-                id=""
+                id="banner"
                 className="file-input file-input-xs file-input-bordered file-input-primary mt-3"
-                onChange={handleCoverImageSelection}
+                name="banner"
+                onChange={handleBannerImageSelection}
                 required
+                accept=".jpg, .jpeg, .png, .JPEG"
               />
             </div>
           </div>
@@ -93,26 +150,38 @@ const CreateBlog = () => {
             <div>
               <div className="flex gap-4">
                 <p className="font-bold">Visibility:</p>
-                <VisibilityInput id="public" label="Public" />
-                <VisibilityInput id="private" label="Private" />
+                <VisibilityInput
+                  id="public"
+                  label="Public"
+                  register={register}
+                  value={"public"}
+                />
+                <VisibilityInput
+                  id="private"
+                  label="Private"
+                  register={register}
+                  value={"private"}
+                />
               </div>
-            </div>
-            <div className="flex flex-col md:flex-row items-start justify-center md:justify-start gap-3">
-              <button className="btn btn-sm btn-primary brder border-primary">
-                Save as draft {<AiTwotoneEdit />}
-              </button>
-              <button
-                className="btn btn-sm btn-primary"
-                onClick={handlePreviewModal}
-              >
-                Preview {<AiTwotoneEye />}
-              </button>
             </div>
           </div>
         </div>
       </form>
+      <div className="flex flex-col md:flex-row items-start justify-center md:justify-start gap-3">
+        <button className="btn btn-sm btn-primary brder border-primary">
+          Save as draft {<AiTwotoneEdit />}
+        </button>
+        <button className="btn btn-sm btn-primary" onClick={handlePreviewModal}>
+          Preview {<AiTwotoneEye />}
+        </button>
+      </div>
       {/* preview modal*/}
-      {preview && <PreviewModal handlePreviewModal={handlePreviewModal} />}
+      {previewBlog && (
+        <PreviewModal
+          handlePreviewModal={handlePreviewModal}
+          previewData={previewData}
+        />
+      )}
     </div>
   );
 };
