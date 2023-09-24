@@ -7,6 +7,7 @@ import BlogDetails from "../pages/BlogDetails";
 import Dashboard from "../layout/Dashboard";
 import Profile from "../pages/dasboard/Profile";
 import CreateBlog from "../pages/CreateBlog";
+import RequireBlogger from "../components/privateRoute/RequireBlogger";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/create-new-blog",
-        element: <CreateBlog />,
+        element: (
+          <RequireBlogger>
+            <CreateBlog />
+          </RequireBlogger>
+        ),
       },
     ],
   },

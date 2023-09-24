@@ -1,7 +1,6 @@
 import {
   AiFillCloseCircle,
   AiOutlineCalendar,
-  AiOutlineCheck,
 } from "react-icons/ai";
 import CategoryBtn from "../shared/CategoryBtn";
 import { IPreviewBlog } from "../../interface";
@@ -52,11 +51,6 @@ const PreviewModal = ({ handlePreviewModal, previewData }: Iprops) => {
           className="absolute top-3 right-3 text-2xl cursor-pointer text-red-500"
           onClick={handlePreviewModal}
         />
-        <div className="flex justify-end p-2">
-          <button className="btn btn-sm btn-primary">
-            Publish {<AiOutlineCheck />}
-          </button>
-        </div>
       </div>
     </div>
   );

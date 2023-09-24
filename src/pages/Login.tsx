@@ -4,17 +4,18 @@ import GoogleBtn from "../components/auth/GoogleBtn";
 import FormHeading from "../components/auth/FormHeading";
 import FormFooter from "../components/auth/FormFooter";
 import { useForm, FieldValues } from "react-hook-form";
-import { useState } from "react";
 import PasswordField from "../components/auth/PasswordField";
 import TextField from "../components/auth/TextField";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useAuthCheck } from "../hooks/useAuthCheck";
 
 const Login = () => {
+  //dont allow login page if user is already logged in
+  useAuthCheck();
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -63,9 +64,6 @@ const Login = () => {
               errors={errors}
               name="password"
               placeholder="Password"
-              showPassword={showPassword}
-              setShowPassword={setShowPassword}
-              isPasswordField={true}
             />
             <SubmitBtn isLoading={isLoading} />
           </form>

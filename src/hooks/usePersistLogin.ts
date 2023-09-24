@@ -19,7 +19,7 @@ const usePersistLogin = () => {
     if (localStorageAuth) {
       setSkip(false);
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (isError) {

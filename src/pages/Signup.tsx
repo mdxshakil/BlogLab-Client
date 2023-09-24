@@ -15,8 +15,12 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import ProfileImageInput from "../components/auth/ProfileImageInput";
 import SelectFavouriteCategories from "../components/auth/SelectFavouriteCategories";
+import { useAuthCheck } from "../hooks/useAuthCheck";
 
 const Signup = () => {
+  //dont allow signup page if user is already logged in
+  useAuthCheck();
+
   const navigate = useNavigate();
   const [profileImage, setProfileImage] = useState<any>();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);

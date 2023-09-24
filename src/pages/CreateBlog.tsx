@@ -2,7 +2,11 @@
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
 import React, { useEffect, useState } from "react";
-import { AiTwotoneEdit, AiTwotoneEye } from "react-icons/ai";
+import {
+  AiOutlineCheckCircle,
+  AiTwotoneEdit,
+  AiTwotoneEye,
+} from "react-icons/ai";
 import CategoryInput from "../components/createBlog/CategoryInput";
 import VisibilityInput from "../components/createBlog/VisibilityInput";
 import PreviewModal from "../components/createBlog/PreviewModal";
@@ -164,17 +168,24 @@ const CreateBlog = () => {
                 />
               </div>
             </div>
+            <div className="flex flex-col md:flex-row items-start justify-center md:justify-start gap-3">
+              <button className="btn btn-sm btn-primary" type="button">
+                Save as draft {<AiTwotoneEdit />}
+              </button>
+              <button
+                className="btn btn-sm btn-primary"
+                type="button"
+                onClick={handlePreviewModal}
+              >
+                Preview {<AiTwotoneEye />}
+              </button>
+              <button className="btn btn-sm border-primary" type="submit">
+                Publish {<AiOutlineCheckCircle />}
+              </button>
+            </div>
           </div>
         </div>
       </form>
-      <div className="flex flex-col md:flex-row items-start justify-center md:justify-start gap-3">
-        <button className="btn btn-sm btn-primary brder border-primary">
-          Save as draft {<AiTwotoneEdit />}
-        </button>
-        <button className="btn btn-sm btn-primary" onClick={handlePreviewModal}>
-          Preview {<AiTwotoneEye />}
-        </button>
-      </div>
       {/* preview modal*/}
       {previewBlog && (
         <PreviewModal

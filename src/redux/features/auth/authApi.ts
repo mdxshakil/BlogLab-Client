@@ -1,5 +1,5 @@
 import { api } from "../../api/apiSlice";
-import { userLoggedIn } from "./authSlice";
+import { toggleLoading, userLoggedIn } from "./authSlice";
 
 const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -27,9 +27,13 @@ const authApi = api.injectEndpoints({
               user: userInfo,
             })
           );
-          dispatch(userLoggedIn(result.data.data));
+          if (result.data.success) {
+            dispatch(userLoggedIn(result.data.data));
+          }
         } catch (error) {
           // nothing to do here
+        } finally {
+          dispatch(toggleLoading(false));
         }
       },
     }),
@@ -41,10 +45,15 @@ const authApi = api.injectEndpoints({
       }),
       async onQueryStarted(_data, { dispatch, queryFulfilled }) {
         try {
+          dispatch(toggleLoading(true));
           const result = await queryFulfilled;
-          dispatch(userLoggedIn(result.data.data));
+          if (result.data.success) {
+            dispatch(userLoggedIn(result.data.data));
+          }
         } catch (error) {
           // nothing to do here
+        } finally {
+          dispatch(toggleLoading(false));
         }
       },
     }),

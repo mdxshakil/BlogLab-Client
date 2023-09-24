@@ -6,7 +6,9 @@ const initialState = {
     accountStatus: "",
     role: "",
     id: "",
+    profilePicture: "",
   },
+  isLoading: true,
 };
 
 const authSlice = createSlice({
@@ -24,11 +26,15 @@ const authSlice = createSlice({
         accountStatus: "",
         role: "",
         id: "",
+        profilePicture: "",
       };
+    },
+    toggleLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
   },
 });
 
-export const { userLoggedIn, userLoggedOut } = authSlice.actions;
+export const { userLoggedIn, userLoggedOut, toggleLoading } = authSlice.actions;
 
 export default authSlice.reducer;

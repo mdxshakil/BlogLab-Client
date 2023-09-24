@@ -120,7 +120,7 @@ const Navbar = () => {
                 }`}
               >
                 <div className="sm:w-8 md:w-10 rounded-full">
-                  <img src="https://static.vecteezy.com/system/resources/previews/019/896/008/original/male-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png" />
+                  <img src={user?.profilePicture} />
                 </div>
               </label>
               <ul
