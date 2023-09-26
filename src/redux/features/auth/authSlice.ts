@@ -6,6 +6,7 @@ const initialState = {
     accountStatus: "",
     role: "",
     id: "",
+    profileId: "",
     profilePicture: "",
   },
   isLoading: true,
@@ -26,6 +27,7 @@ const authSlice = createSlice({
         accountStatus: "",
         role: "",
         id: "",
+        profileId: "",
         profilePicture: "",
       };
     },

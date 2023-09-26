@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api } from "../../api/apiSlice";
 
-const blogApi = api.injectEndpoints({
+export const blogApi = api.injectEndpoints({
   endpoints: (builder) => ({
     createNewBlog: builder.mutation({
       query: (data) => ({
@@ -45,8 +45,8 @@ const blogApi = api.injectEndpoints({
       },
     }),
     getPreferredBlogs: builder.query({
-      query: (userId) => ({
-        url: `/blog/get-preferred-blogs?userId=${userId}`,
+      query: (profileId) => ({
+        url: `/blog/get-preferred-blogs?userId=${profileId}`,
         method: "GET",
       }),
     }),
