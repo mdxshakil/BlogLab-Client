@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import { Link } from "react-router-dom";
 // import cardImage from "../../assets/images/fantasy-2049567_1280.jpg";
 // import { truncateText } from "../../utils/textTruncate";
@@ -60,11 +61,10 @@ import CategoryBtn from "./CategoryBtn";
 import LikeBtn from "./LikeBtn";
 import CommentBtn from "./CommentBtn";
 import ShareBtn from "./ShareBtn";
-import DisLikeBtn from "./DisLikeBtn";
 import BookmarkBtn from "./BookmarkBtn";
 import AuthorAvatar from "./AuthorAvatar";
 
-const BlogCard = () => {
+const BlogCard = ({ blog }: { blog: any }) => {
   return (
     <div className="flex flex-col md:flex-row items-start lg:items-center gap-6 bg-base-300 shadow-xl rounded-lg p-3 md:p-6">
       <img
@@ -81,24 +81,25 @@ const BlogCard = () => {
         </p>
         <Link to={`/blog/:blogId`}>
           <h2 className="text-[12px] md:text-3xl font-[700] cursor-pointer hover:underline decoration-primary decoration-1">
-            {truncateText(
-              "Autumn is a second spring when every leaf is a flower",
-              65
-            )}
+            {truncateText(blog?.title, 65)}
           </h2>
         </Link>
 
         <div className="flex items-center gap-0">
-          <CategoryBtn category="nature" />
+          <CategoryBtn category={blog?.category?.title} />
           <BookmarkBtn />
         </div>
-        <AuthorAvatar />
+        <AuthorAvatar
+          firstName={blog.author.firstName}
+          lastName={blog.author.lastName}
+          profilePicture={blog.author.profilePicture}
+          bloggerLevel={blog.author.bloggerLevel}
+        />
         {/* <div className="flex flex-wrap items-center text-sm gap-4 md:gap-6 mt-2 md:mt-0"> */}
         <div className="grid grid-cols-4 md:grid-cols-4 gap-x-2 gap-y-2 w-full md:w-1/2">
-          <LikeBtn />
-          <DisLikeBtn />
-          <CommentBtn />
-          <ShareBtn />
+          <LikeBtn likeCount={blog?.likeCount} />
+          <CommentBtn commentCount={blog?.commentCount} />
+          <ShareBtn shareCount={blog?.shareCount} />
         </div>
       </div>
     </div>

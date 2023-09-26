@@ -25,5 +25,5 @@ export const api = createApi({
     }
     return result;
   },
-  endpoints: () => ({}),
+  endpoints: (builder) => ({}),
 });

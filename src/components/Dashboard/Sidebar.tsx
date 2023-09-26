@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { BiArrowFromRight, BiSolidDashboard } from "react-icons/bi";
 import { RxAvatar } from "react-icons/rx";
 import { ReactNode, useState } from "react";
+import { AiFillBook } from "react-icons/ai";
 
 type IProps = {
   children: ReactNode;
@@ -25,6 +26,13 @@ const Sidebar = ({ children }: IProps) => {
       icon: <RxAvatar className="text-sm md:text-xl" />,
       label: "Profile",
       isActive: location === "/dashboard/profile",
+    },
+    {
+      id: 3,
+      path: "/dashboard/manage-blogs",
+      icon: <AiFillBook className="text-sm md:text-xl" />,
+      label: "Profile",
+      isActive: location === "/dashboard/manage-blogs",
     },
   ];
 

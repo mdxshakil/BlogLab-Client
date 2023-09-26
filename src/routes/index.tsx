@@ -8,6 +8,7 @@ import Dashboard from "../layout/Dashboard";
 import Profile from "../pages/dasboard/Profile";
 import CreateBlog from "../pages/CreateBlog";
 import RequireBlogger from "../components/privateRoute/RequireBlogger";
+import ManageBlogs from "../pages/dasboard/admin/ManageBlogs";
 
 const router = createBrowserRouter([
   {
@@ -38,11 +39,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Login />,
+        element: <Profile />,
       },
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "manage-blogs",
+        element: <ManageBlogs />,
       },
     ],
   },
