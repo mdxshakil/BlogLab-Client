@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 import { Toaster } from "react-hot-toast";
 import LoadingSpinner from "./components/shared/LoadingSpinner";
 import usePersistLogin from "./hooks/usePersistLogin";
-
 function App() {
   const { themeMode } = useAppSelector((state) => state.theme);
   const { isLoading } = usePersistLogin();
