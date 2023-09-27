@@ -50,7 +50,11 @@ const categoryApi = api.injectEndpoints({
         try {
           await queryFulfilled;
           // Refetch the getPreferredBlogs endpoint of blogApi for homepage
-          dispatch(blogApi.endpoints.getPreferredBlogs.initiate(arg.profileId));
+          dispatch(
+            blogApi.endpoints.getPreferredBlogs.initiate(arg.profileId, {
+              forceRefetch: true,
+            })
+          );
         } catch (error) {
           patchResult.undo();
         }

@@ -79,7 +79,7 @@ const BlogCard = ({ blog }: { blog: any }) => {
           </span>
           <span>July 2, 2020</span>
         </p>
-        <Link to={`/blog/:blogId`}>
+        <Link to={`/blog/${blog.id}`}>
           <h2 className="text-[12px] md:text-3xl font-[700] cursor-pointer hover:underline decoration-primary decoration-1">
             {truncateText(blog?.title, 65)}
           </h2>

@@ -50,6 +50,24 @@ export const blogApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    getBlogById: builder.query({
+      query: (blogId) => ({
+        url: `/blog/${blogId}`,
+        method: "GET",
+      }),
+    }),
+    getBlogByAuthorId: builder.query({
+      query: (authorId) => ({
+        url: `/blog/author/${authorId}`,
+        method: "GET",
+      }),
+    }),
+    getLatestBlogs: builder.query({
+      query: () => ({
+        url: "/blog/latest-blogs",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -58,4 +76,7 @@ export const {
   useGetPendingBlogsQuery,
   useApprovePendingBlogsMutation,
   useGetPreferredBlogsQuery,
+  useGetBlogByIdQuery,
+  useGetBlogByAuthorIdQuery,
+  useGetLatestBlogsQuery,
 } = blogApi;

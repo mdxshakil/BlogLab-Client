@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 // import DOMPurify from "dompurify";
 
 const CreateBlog = () => {
+  // modal state
   const [previewBlog, setPreviewBlog] = useState(false);
   const [previewData, setPreviewData] = useState<IPreviewBlog>({
     title: "",
@@ -199,10 +200,4 @@ const CreateBlog = () => {
 
 export default CreateBlog;
 
-{
-  /* <div
-  dangerouslySetInnerHTML={{
-    __html: DOMPurify.sanitize(value),
-  }}
-></div>; */
-}
+

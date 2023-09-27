@@ -2,7 +2,10 @@
 import BlogCard from "../components/shared/BlogCard";
 import Carousel from "../components/homepage/Carousel";
 import Sidebar from "../components/shared/Sidebar";
-import { useGetPreferredBlogsQuery } from "../redux/features/blog/blogApi";
+import {
+  useGetLatestBlogsQuery,
+  useGetPreferredBlogsQuery,
+} from "../redux/features/blog/blogApi";
 import { useAppSelector } from "../redux/hooks";
 import { AiFillSetting } from "react-icons/ai";
 import ChooseCategory from "../components/homepage/ChooseCategory";
@@ -12,6 +15,7 @@ const Home = () => {
   const [myFeedCategoryModal, setMyFeedCategoryModal] = useState(false);
   const { profileId } = useAppSelector((state) => state.auth.user);
   const { data: preferredBlogs } = useGetPreferredBlogsQuery(profileId);
+  const { data: latestBlogs } = useGetLatestBlogsQuery("");
 
   const handleCategoryChooseModal = () => {
     setMyFeedCategoryModal(!myFeedCategoryModal);
@@ -49,7 +53,7 @@ const Home = () => {
           </div>
           {/* pagination end */}
         </div>
-        <Sidebar title="Latest posts" />
+        <Sidebar title="Latest posts" blogs={latestBlogs} />
       </div>
       {/* planning to add infinite scroll here */}
     </div>
