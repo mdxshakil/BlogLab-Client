@@ -1,3 +1,4 @@
+/* eslint-disable no-undefined */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api } from "../../api/apiSlice";
 
@@ -9,6 +10,19 @@ export const blogApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const newBlog = await queryFulfilled;
+          dispatch(
+            blogApi.util.updateQueryData("getLatestBlogs", "", (draft) => {
+              draft?.data?.unshift(newBlog?.data?.data);
+              return draft;
+            })
+          );
+        } catch (error) {
+          //nothing to do here at this moment
+        }
+      },
     }),
     getPendingBlogs: builder.query({
       query: (query) => ({

@@ -10,7 +10,7 @@ type IProps = {
 };
 
 const SidebarBlogCard = ({ blog }: IProps) => {
-  const { title, banner, createdAt, category } = blog || {};
+  const { id, title, banner, createdAt, category } = blog || {};
 
   return (
     <div className="flex items-center gap-3">
@@ -20,7 +20,7 @@ const SidebarBlogCard = ({ blog }: IProps) => {
         className="rounded-lg w-[28%] h-16 md:h-20 object-cover"
       />
       <div>
-        <Link to={`/blog/2`}>
+        <Link to={`/blog/${id}`}>
           <h3 className="font-bold text-[12px] md:text-sm pb-3 hover:underline decoration-primary decoration-1">
             {truncateText(title, 50)}
           </h3>
@@ -31,7 +31,7 @@ const SidebarBlogCard = ({ blog }: IProps) => {
             <span>
               <AiOutlineCalendar />
             </span>
-            <span>{moment(createdAt).format('ll')}</span>
+            <span>{moment(createdAt).format("ll")}</span>
           </p>
         </div>
       </div>

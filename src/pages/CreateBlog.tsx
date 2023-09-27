@@ -18,7 +18,6 @@ import { useCreateNewBlogMutation } from "../redux/features/blog/blogApi";
 import { QuillModules } from "../constants";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-// import DOMPurify from "dompurify";
 
 const CreateBlog = () => {
   // modal state
