@@ -24,9 +24,9 @@ export const blogApi = api.injectEndpoints({
         }
       },
     }),
-    getPendingBlogs: builder.query({
+    getBlogsForAdminDashboard: builder.query({
       query: (query) => ({
-        url: `/blog/get-pending-blogs?limit=${query?.limit}&page=${query?.page}&sortBy=${query?.sortBy}&sortOrder=${query?.sortOrder}`,
+        url: `/blog/get-pending-blogs?limit=${query?.limit}&page=${query?.page}&sortBy=${query?.sortBy}&sortOrder=${query?.sortOrder}&isApproved=${query.filter}&isFeatured=${query.filter}`,
         method: "GET",
       }),
     }),
@@ -40,7 +40,7 @@ export const blogApi = api.injectEndpoints({
         //optimistically update  cache
         const patchResult = dispatch(
           blogApi.util.updateQueryData(
-            "getPendingBlogs",
+            "getBlogsForAdminDashboard",
             arg.query,
             (draft) => {
               const unApprovedBlogs = draft.data.data.filter(
@@ -112,6 +112,8 @@ export const blogApi = api.injectEndpoints({
                     blogId: arg.blogId,
                     likerId: arg.likerId,
                   });
+                  // Update the like count by incrementing it
+                  updatedBlog.likeCount = (updatedBlog.likeCount || 0) + 1;
 
                   // Replace the old blog in the data array with the updated one
                   const blogIndex = draft.data.findIndex(
@@ -127,7 +129,8 @@ export const blogApi = api.injectEndpoints({
                     (like: any) =>
                       like.likerId !== arg.likerId && like.blogId !== arg.blogId
                   );
-
+                  // Update the like count by decrementing it
+                  updatedBlog.likeCount = (updatedBlog.likeCount || 0) - 1;
                   // Replace the old blog in the data array with the updated one
                   const blogIndex = draft.data.findIndex(
                     (blog: any) => blog.id === arg.blogId
@@ -148,16 +151,23 @@ export const blogApi = api.injectEndpoints({
         }
       },
     }),
+    getFeaturedBlogs: builder.query({
+      query: () => ({
+        url: "/blog/featured-blogs",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
 export const {
   useCreateNewBlogMutation,
-  useGetPendingBlogsQuery,
+  useGetBlogsForAdminDashboardQuery,
   useApprovePendingBlogsMutation,
   useGetPreferredBlogsQuery,
   useGetBlogByIdQuery,
   useGetBlogByAuthorIdQuery,
   useGetLatestBlogsQuery,
   useLikeABlogMutation,
+  useGetFeaturedBlogsQuery,
 } = blogApi;

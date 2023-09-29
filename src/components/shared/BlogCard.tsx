@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom";
-import cardImage from "../../assets/images/fantasy-2049567_1280.jpg";
 import { truncateText } from "../../utils/textTruncate";
 import { AiOutlineCalendar } from "react-icons/ai";
 import CategoryBtn from "./CategoryBtn";
@@ -27,6 +26,7 @@ const BlogCard = ({ blog }: { blog: any }) => {
   )
     ? true
     : false;
+    
 
   const handleBlogLike = () => {
     likeBlog({ blogId: blog?.id, likerId: profileId });
@@ -51,7 +51,7 @@ const BlogCard = ({ blog }: { blog: any }) => {
   return (
     <div className="flex flex-col md:flex-row items-start lg:items-center gap-6 bg-base-300 shadow-xl rounded-lg p-3 md:p-6">
       <img
-        src={cardImage}
+        src={blog?.banner}
         alt="Movie"
         className="rounded-lg sm:w-full md:w-2/5 h-full object-cover"
       />
@@ -80,7 +80,7 @@ const BlogCard = ({ blog }: { blog: any }) => {
         />
         <div className="grid grid-cols-4 md:grid-cols-4 gap-x-2 gap-y-2 w-full md:w-1/2">
           <LikeBtn
-            likeCount={blog?.likes?.length}
+            likeCount={blog?.likeCount}
             handleBlogLike={handleBlogLike}
             isLikedByCurrentUser={isLikedByCurrentUser}
             isLikeLoading={isLikeLoading}

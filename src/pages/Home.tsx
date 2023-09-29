@@ -20,8 +20,9 @@ const Home = () => {
   const handleCategoryChooseModal = () => {
     setMyFeedCategoryModal(!myFeedCategoryModal);
   };
+
   return (
-    <div className="pb-12">
+    <div className="pb-12 relative">
       <Carousel />
       <div>
         <button
