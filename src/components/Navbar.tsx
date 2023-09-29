@@ -4,8 +4,9 @@ import ThemeChanger from "./ThemeChanger";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { AiOutlineMenu } from "react-icons/ai";
 import { userLoggedOut } from "../redux/features/auth/authSlice";
+import { BsCardChecklist } from "react-icons/bs";
+import { AiOutlineMenu } from "react-icons/ai";
 
 const Navbar = () => {
   const [isScrolling, setIsScrolling] = useState(false);
@@ -101,7 +102,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <div className="flex gap-3 items-center ">
+        <div className="flex gap-3 items-center">
           <ThemeChanger />
           {!user.email ? (
             <div>
@@ -151,6 +152,13 @@ const Navbar = () => {
               >
                 Post blog
               </button>
+            </div>
+          )}
+          {user.role && (
+            <div>
+              <Link to={"/my-bookmarks"}>
+                <BsCardChecklist className="text-3xl" />
+              </Link>
             </div>
           )}
         </div>

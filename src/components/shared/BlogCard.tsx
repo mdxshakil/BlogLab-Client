@@ -12,26 +12,26 @@ import { useLikeABlogMutation } from "../../redux/features/blog/blogApi";
 import { useAppSelector } from "../../redux/hooks";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+import moment from "moment";
 
 const BlogCard = ({ blog }: { blog: any }) => {
+  
   //like a blog
   const [
     likeBlog,
     { isLoading: isLikeLoading, isError, isSuccess, error, data },
   ] = useLikeABlogMutation();
-  const { profileId } = useAppSelector((state) => state.auth.user);
+  const { profileId } = useAppSelector((state) => state?.auth?.user);
   //check blog liked or not by current user
   const isLikedByCurrentUser = blog?.likes?.find(
-    (like: any) => like.likerId === profileId
+    (like: any) => like?.likerId === profileId
   )
     ? true
     : false;
-    
 
   const handleBlogLike = () => {
     likeBlog({ blogId: blog?.id, likerId: profileId });
   };
-
   useEffect(() => {
     if (isError) {
       if (error && "data" in error) {
@@ -60,9 +60,9 @@ const BlogCard = ({ blog }: { blog: any }) => {
           <span>
             <AiOutlineCalendar />
           </span>
-          <span>July 2, 2020</span>
+          <span>{moment(blog?.createdAt).format("ll")}</span>
         </p>
-        <Link to={`/blog/${blog.id}`}>
+        <Link to={`/blog/${blog?.id}`}>
           <h2 className="text-[12px] md:text-3xl font-[700] cursor-pointer hover:underline decoration-primary decoration-1">
             {truncateText(blog?.title, 65)}
           </h2>
@@ -70,7 +70,7 @@ const BlogCard = ({ blog }: { blog: any }) => {
 
         <div className="flex items-center gap-0">
           <CategoryBtn category={blog?.category?.title} />
-          <BookmarkBtn />
+          <BookmarkBtn blogId={blog?.id} profileId={profileId} />
         </div>
         <AuthorAvatar
           firstName={blog.author.firstName}

@@ -17,12 +17,12 @@ const SidebarBlogCard = ({ blog }: IProps) => {
       <img
         src={banner}
         alt="blog-banner"
-        className="rounded-lg w-[28%] h-16 md:h-20 object-cover"
+        className="rounded-lg w-[20%] h-16 md:h-20 object-cover"
       />
       <div>
         <Link to={`/blog/${id}`}>
           <h3 className="font-bold text-[12px] md:text-sm pb-3 hover:underline decoration-primary decoration-1">
-            {truncateText(title, 50)}
+            {truncateText(title, 30)}
           </h3>
         </Link>
         <div className="flex gap-2 items-center">

@@ -10,6 +10,7 @@ import AddToBookmark from "../shared/BookmarkBtn";
 import AuthorAvatar from "../shared/AuthorAvatar";
 import DOMPurify from "dompurify";
 import moment from "moment";
+import { useAppSelector } from "../../redux/hooks";
 
 type IProps = {
   isModal?: boolean;
@@ -17,7 +18,8 @@ type IProps = {
 };
 
 const BlogDetailsCard = ({ isModal, blog }: IProps) => {
-  const { author, banner, title, category, createdAt, content, likeCount } =
+  const { profileId } = useAppSelector((state) => state?.auth?.user);
+  const { author, banner, title, category, createdAt, content, likeCount, id } =
     blog || {};
   const { firstName, lastName, bloggerLevel, profilePicture } = author || {};
 
@@ -73,7 +75,7 @@ const BlogDetailsCard = ({ isModal, blog }: IProps) => {
                 <AiOutlineLike />
                 <span>{likeCount}</span>
               </button>
-              {!isModal && <AddToBookmark />}
+              {!isModal && <AddToBookmark blogId={id} profileId={profileId} />}
             </div>
           </div>
           <div className="divider m-0"></div>

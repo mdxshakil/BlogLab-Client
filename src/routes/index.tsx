@@ -9,6 +9,7 @@ import Profile from "../pages/dasboard/Profile";
 import CreateBlog from "../pages/CreateBlog";
 import RequireBlogger from "../components/privateRoute/RequireBlogger";
 import ManageBlogs from "../pages/dasboard/admin/ManageBlogs";
+import Bookmark from "../pages/Bookmark";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
         element: (
           <RequireBlogger>
             <CreateBlog />
+          </RequireBlogger>
+        ),
+      },
+      {
+        path: "/my-bookmarks",
+        element: (
+          <RequireBlogger>
+            <Bookmark />
           </RequireBlogger>
         ),
       },

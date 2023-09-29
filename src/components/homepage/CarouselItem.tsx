@@ -1,22 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom";
-import carousel from "../../assets/images/hero-bg.jpg";
 import { truncateText } from "../../utils/textTruncate";
 import BookmarkBtn from "../shared/BookmarkBtn";
 import CategoryBtn from "../shared/CategoryBtn";
 import AuthorAvatar from "../shared/AuthorAvatar";
 import { AiOutlineCalendar } from "react-icons/ai";
 import moment from "moment";
+import { useAppSelector } from "../../redux/hooks";
 
 const CarouselItem = ({ blog }: { blog: any }) => {
-  const { title, createdAt, category, author, id } = blog || {};
+  const { profileId } = useAppSelector((state) => state?.auth?.user);
+  const { title, createdAt, category, author, id, banner } = blog || {};
   return (
     <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 p-12 ">
       <div className="order-last lg:order-first relative">
         <img
-          src={carousel}
+          src={banner}
           alt=""
-          className="rounded-lg object-cover w-full border-primary"
+          className="rounded-lg object-cover w-full border-primary h-[150px] md:h-[300px]"
         />
       </div>
       <div className="flex flex-col justify-center gap-2 md:gap-4">
@@ -33,7 +34,7 @@ const CarouselItem = ({ blog }: { blog: any }) => {
         </Link>
         <div className="flex">
           <CategoryBtn category={category?.title} />
-          <BookmarkBtn />
+          <BookmarkBtn profileId={profileId} blogId={id} />
         </div>
         <AuthorAvatar
           firstName={author.firstName}
