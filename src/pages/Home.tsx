@@ -15,7 +15,11 @@ const Home = () => {
   const [myFeedCategoryModal, setMyFeedCategoryModal] = useState(false);
   const { profileId } = useAppSelector((state) => state.auth.user);
   const { data: preferredBlogs } = useGetPreferredBlogsQuery(profileId);
-  const { data: latestBlogs } = useGetLatestBlogsQuery("");
+  const {
+    data: latestBlogs,
+    isLoading: latestBlogsLoading,
+    isError: latestBlogsError,
+  } = useGetLatestBlogsQuery("");
 
   const handleCategoryChooseModal = () => {
     setMyFeedCategoryModal(!myFeedCategoryModal);
@@ -54,7 +58,12 @@ const Home = () => {
           </div>
           {/* pagination end */}
         </div>
-        <Sidebar title="Latest posts" blogs={latestBlogs} />
+        <Sidebar
+          title="Latest posts"
+          blogs={latestBlogs}
+          isLoading={latestBlogsLoading}
+          isError={latestBlogsError}
+        />
       </div>
       {/* planning to add infinite scroll here */}
     </div>

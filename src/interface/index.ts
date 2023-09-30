@@ -9,3 +9,10 @@ export type IPreviewBlog = {
   banner: string;
   category: string;
 };
+
+export type IComment = {
+  id: string;
+  comment: string;
+  profileId: string;
+  blogId: string;
+};

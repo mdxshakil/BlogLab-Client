@@ -1,40 +1,46 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import CategoryBtn from "../../components/shared/CategoryBtn";
 import { useGetAllCategoryQuery } from "../../redux/features/category/categoryApi";
-import LoadingSpinner from "./LoadingSpinner";
-import SidebarBlogCard from "./SidebarBlogCard";
+import { renderSidebarContent } from "../../utils/renderSidebarContent";
 import { ReactNode } from "react";
 
 type IProps = {
   title: string;
   children?: ReactNode;
   blogs?: any;
+  isLoading: boolean;
+  isError: boolean;
 };
 
-const Sidebar = ({ title, children, blogs }: IProps) => {
-  const { data: category, isLoading } = useGetAllCategoryQuery("");
+const Sidebar = ({ title, children, blogs, isLoading, isError }: IProps) => {
+  const {
+    data: categories,
+    isLoading: categoriesLoading,
+    isError: categoriesError,
+  } = useGetAllCategoryQuery("");
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
+  const sidebarBlogs = renderSidebarContent({
+    isLoading,
+    isError,
+    data: blogs?.data,
+    whatToRender: "blogs",
+  });
+  const sidebarCategories = renderSidebarContent({
+    isLoading: categoriesLoading,
+    isError: categoriesError,
+    data: categories?.data,
+    whatToRender: "categories",
+  });
+
   return (
     <div className="bg-base-300 w-full lg:w-2/5 h-fit md:h-screen rounded-lg sticky top-0 overflow-y-scroll">
       <div className="p-6">
         {/* profile card */}
         <div>{children}</div>
         <h1 className="text-xl font-semibold mb-3">{title}</h1>
-        <div className="flex flex-col gap-4">
-          {blogs?.data?.map((blog: any) => (
-            <SidebarBlogCard key={blog.id} blog={blog} />
-          ))}
-        </div>
+        <div className="flex flex-col gap-4">{sidebarBlogs}</div>
         <div className="mt-6">
           <h1 className="text-2xl font-semibold mb-3">Categories</h1>
-          <div className=" flex flex-wrap gap-2">
-            {category?.data?.map((category: any) => (
-              <CategoryBtn key={category.id} category={category?.title} />
-            ))}
-          </div>
+          <div className=" flex flex-wrap gap-2">{sidebarCategories}</div>
         </div>
       </div>
     </div>

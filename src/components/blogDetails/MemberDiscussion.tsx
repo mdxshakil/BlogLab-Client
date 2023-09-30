@@ -1,7 +1,7 @@
 import AskToSignUp from "./AskToSignUp";
 import CommentSection from "./CommentSection";
 
-const MemberDiscussion = () => {
+const MemberDiscussion = ({ blogId }: { blogId: string }) => {
   const user = null;
   return (
     <div className="p-6 lg:p-12 bg-base-300 rounded-lg">
@@ -11,7 +11,7 @@ const MemberDiscussion = () => {
           <p>0 comments</p>
         </div>
         <div className="divider"></div>
-        {user ? <AskToSignUp /> : <CommentSection />}
+        {user ? <AskToSignUp /> : <CommentSection blogId={blogId} />}
       </div>
     </div>
   );
