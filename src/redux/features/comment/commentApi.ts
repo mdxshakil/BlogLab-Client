@@ -40,23 +40,29 @@ export const commentApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      // async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-      //   try {
-      //     const res = await queryFulfilled;
-      //     dispatch(
-      //       commentApi.util.updateQueryData(
-      //         "getAllComment",
-      //         arg?.blogId,
-      //         (draft) => {
-      //           draft?.data?.unshift(res?.data?.data);
-      //           return draft;
-      //         }
-      //       )
-      //     );
-      //   } catch (error) {
-      //     //nothing to do here at this moment
-      //   }
-      // },
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const res = await queryFulfilled;
+          dispatch(
+            commentApi.util.updateQueryData(
+              "getAllReply",
+              arg?.commentId,
+              (draft) => {
+                draft?.data?.push(res?.data?.data);
+                return draft;
+              }
+            )
+          );
+        } catch (error) {
+          //nothing to do here at this moment
+        }
+      },
+    }),
+    getAllReply: builder.query({
+      query: (commentId) => ({
+        url: `/comment/get-all-reply/${commentId}`,
+        method: "GET",
+      }),
     }),
   }),
 });
@@ -65,4 +71,5 @@ export const {
   useAddCommentMutation,
   useGetAllCommentQuery,
   useAddReplyMutation,
+  useGetAllReplyQuery,
 } = commentApi;

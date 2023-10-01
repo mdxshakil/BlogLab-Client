@@ -3,11 +3,38 @@ import { useState } from "react";
 import ReplyInput from "./ReplyInput";
 import Reply from "./Reply";
 import moment from "moment";
+import { useGetAllReplyQuery } from "../../redux/features/comment/commentApi";
 
 const Comment = (comment: any) => {
   const [toggleReplyMode, setToggleReplyMode] = useState(false);
+  const [fetchReply, setFetchReply] = useState(true);
   const [showReplies, setShowReplies] = useState(false);
   const { comment: commentText, profile, createdAt, id } = comment.comment;
+
+  //fetch replies of this comment
+  const {
+    data: replies,
+    isLoading,
+    isError,
+  } = useGetAllReplyQuery(id, {
+    skip: fetchReply,
+  });
+
+  const handleReplyFetch = () => {
+    setFetchReply(false);
+    setShowReplies(!showReplies);
+  };
+
+  let replyContent;
+  if (isLoading) {
+    replyContent = <p className="loading"></p>;
+  } else if (!isLoading && isError) {
+    replyContent = <p className="text-error text-sm">An error occured</p>;
+  } else if (!isLoading && !isError && replies?.data?.length === 0) {
+    replyContent = <p className="text-secondary text-sm">No replies yet</p>;
+  } else if (!isLoading && !isError && replies?.data?.length > 0) {
+    replyContent = replies?.data?.map((reply: any) => <Reply reply={reply} />);
+  }
 
   return (
     <section
@@ -39,14 +66,16 @@ const Comment = (comment: any) => {
           </button>
           <button
             className="hover:bg-base-100 px-2 py-1 rounded-full"
-            onClick={() => setShowReplies(!showReplies)}
+            onClick={handleReplyFetch}
           >
-            {showReplies ? "Hide Replies" : "View Replies"}
+            {showReplies
+              ? `Hide Replies ${`(${replies?.data?.length})`}`
+              : "View Replies"}
           </button>
         </div>
       </div>
       {toggleReplyMode ? <ReplyInput commentId={id} /> : null}
-      {showReplies ? <Reply /> : null}
+      {showReplies ? replyContent : null}
     </section>
   );
 };
