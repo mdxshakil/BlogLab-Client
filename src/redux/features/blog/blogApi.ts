@@ -59,8 +59,8 @@ export const blogApi = api.injectEndpoints({
       },
     }),
     getPreferredBlogs: builder.query({
-      query: (profileId) => ({
-        url: `/blog/get-preferred-blogs?userId=${profileId}`,
+      query: ({ profileId, page }) => ({
+        url: `/blog/get-preferred-blogs?userId=${profileId}&page=${page}`,
         method: "GET",
       }),
     }),

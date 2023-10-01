@@ -1,8 +1,9 @@
+import { useAppSelector } from "../../redux/hooks";
 import AskToSignUp from "./AskToSignUp";
 import CommentSection from "./CommentSection";
 
 const MemberDiscussion = ({ blogId }: { blogId: string }) => {
-  const user = null;
+  const { profileId } = useAppSelector((state) => state?.auth?.user);
   return (
     <div className="p-6 lg:p-12 bg-base-300 rounded-lg">
       <div>
@@ -11,7 +12,7 @@ const MemberDiscussion = ({ blogId }: { blogId: string }) => {
           <p>0 comments</p>
         </div>
         <div className="divider"></div>
-        {user ? <AskToSignUp /> : <CommentSection blogId={blogId} />}
+        {!profileId ? <AskToSignUp /> : <CommentSection blogId={blogId} />}
       </div>
     </div>
   );

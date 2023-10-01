@@ -9,12 +9,16 @@ import {
 import { useAppSelector } from "../redux/hooks";
 import { AiFillSetting } from "react-icons/ai";
 import ChooseCategory from "../components/homepage/ChooseCategory";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+  const [page, setPage] = useState(1);
   const [myFeedCategoryModal, setMyFeedCategoryModal] = useState(false);
   const { profileId } = useAppSelector((state) => state.auth.user);
-  const { data: preferredBlogs } = useGetPreferredBlogsQuery(profileId);
+  const { data: preferredBlogs } = useGetPreferredBlogsQuery({
+    profileId,
+    page,
+  });
   const {
     data: latestBlogs,
     isLoading: latestBlogsLoading,
@@ -24,6 +28,10 @@ const Home = () => {
   const handleCategoryChooseModal = () => {
     setMyFeedCategoryModal(!myFeedCategoryModal);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 650);
+  }, [page]);
 
   return (
     <div className="pb-12 relative">
@@ -44,16 +52,28 @@ const Home = () => {
       <div className="flex flex-col lg:flex-row gap-6">
         <div>
           <div className="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-1 gap-3 md:gap-6 w-full px-2 md:px-0">
-            {preferredBlogs?.data?.map((blog: any) => (
+            {preferredBlogs?.data?.data?.map((blog: any) => (
               <BlogCard key={blog?.id} blog={blog} />
             ))}
           </div>
           {/* pagination start */}
           <div className="flex justify-center mt-6">
             <div className="join">
-              <button className="join-item btn bg-base-300">«</button>
-              <button className="join-item btn bg-base-300">Page 22</button>
-              <button className="join-item btn bg-base-300">»</button>
+              <button
+                className="join-item btn bg-base-300"
+                onClick={() => setPage((prevPage) => prevPage - 1)}
+                disabled={page === 1}
+              >
+                «
+              </button>
+              <button className="join-item btn bg-base-300">{page}</button>
+              <button
+                className="join-item btn bg-base-300"
+                onClick={() => setPage((prevPage) => prevPage + 1)}
+                disabled={preferredBlogs?.data?.meta?.pageCount === page}
+              >
+                »
+              </button>
             </div>
           </div>
           {/* pagination end */}

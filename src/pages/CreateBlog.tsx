@@ -79,16 +79,31 @@ const CreateBlog = () => {
 
   useEffect(() => {
     if (createBlogStatus.isError) {
-      toast.error("Failed to create new blog. Try Again!");
+      if (createBlogStatus.error && "data" in createBlogStatus.error) {
+        toast.error(
+          (createBlogStatus.error as { data: { message: string } }).data
+            .message || "Failed to create new blog. Try Again!"
+        );
+      } else {
+        toast.error("An error occurred");
+      }
     }
     if (createBlogStatus.isSuccess) {
       toast.success("New blog created successfully. Wait for approval!");
       navigate("/");
     }
-  }, [createBlogStatus.isSuccess, createBlogStatus.isError, navigate]);
+  }, [
+    createBlogStatus.isSuccess,
+    createBlogStatus.error,
+    createBlogStatus.isError,
+    navigate,
+  ]);
 
   return (
     <div className="py-12 relative">
+      <h3 className="mb-3 text-center text-secondary">
+        Note: You can create maximum 2 blogs per day
+      </h3>
       <form
         className="grid grid-cols-6 gap-6"
         onSubmit={handleSubmit(onSubmit)}
@@ -198,5 +213,3 @@ const CreateBlog = () => {
 };
 
 export default CreateBlog;
-
-
