@@ -2,10 +2,7 @@
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
 import React, { useEffect, useState } from "react";
-import {
-  AiOutlineCheckCircle,
-  AiTwotoneEye,
-} from "react-icons/ai";
+import { AiOutlineCheckCircle, AiTwotoneEye } from "react-icons/ai";
 import CategoryInput from "../components/createBlog/CategoryInput";
 import VisibilityInput from "../components/createBlog/VisibilityInput";
 import PreviewModal from "../components/createBlog/PreviewModal";
@@ -13,12 +10,14 @@ import { useGetAllCategoryQuery } from "../redux/features/category/categoryApi";
 import { ICategory, IPreviewBlog } from "../interface";
 import CategoryLoader from "../components/createBlog/CategoryLoader";
 import { FieldValues, useForm } from "react-hook-form";
-import { useCreateNewBlogMutation } from "../redux/features/blog/blogApi";
+import { useGetBlogByIdQuery } from "../redux/features/blog/blogApi";
 import { QuillModules } from "../constants";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const CreateBlog = () => {
+const EditBlog = () => {
+  const { blogId } = useParams();
+  const { data } = useGetBlogByIdQuery(blogId);
+  const blog = data?.data;
   // modal state
   const [previewBlog, setPreviewBlog] = useState(false);
   const [previewData, setPreviewData] = useState<IPreviewBlog>({
@@ -27,13 +26,17 @@ const CreateBlog = () => {
     banner: "",
     category: "",
   });
+  const [defaultData, setDefaultData] = useState({
+    title: blog?.title,
+    content: blog?.content,
+    categoryId: blog?.categoryId,
+    visibility: blog?.visibility,
+  });
 
   const [bannerImg, setBannerImg] = useState<any>();
   const [previewBannerImg, setPreviewBannerImg] = useState<string>();
   const { data: categories, isLoading } = useGetAllCategoryQuery("");
   const [content, setContent] = useState("");
-  const navigate = useNavigate();
-  const [createBlog, createBlogStatus] = useCreateNewBlogMutation();
   const {
     register,
     handleSubmit,
@@ -72,30 +75,23 @@ const CreateBlog = () => {
     formData.append("categoryId", data.category);
     formData.append("visibility", data.visibility);
     formData.append("banner", bannerImg);
-
-    await createBlog(formData);
   };
 
   useEffect(() => {
-    if (createBlogStatus.isError) {
-      if (createBlogStatus.error && "data" in createBlogStatus.error) {
-        toast.error(
-          (createBlogStatus.error as { data: { message: string } }).data
-            .message || "Failed to create new blog. Try Again!"
-        );
-      } else {
-        toast.error("An error occurred");
-      }
-    }
-    if (createBlogStatus.isSuccess) {
-      toast.success("New blog created successfully. Wait for approval!");
-      navigate("/");
-    }
+    setDefaultData({
+      title: blog?.title,
+      content: blog?.content,
+      categoryId: blog?.categoryId,
+      visibility: blog?.visibility,
+    });
+    setBannerImg(blog?.banner);
+    setPreviewBannerImg(blog?.banner);
   }, [
-    createBlogStatus.isSuccess,
-    createBlogStatus.error,
-    createBlogStatus.isError,
-    navigate,
+    blog?.title,
+    blog?.content,
+    blog?.banner,
+    blog?.categoryId,
+    blog?.visibility,
   ]);
 
   return (
@@ -111,7 +107,7 @@ const CreateBlog = () => {
         <div className="col-span-6 md:col-span-4">
           <input
             type="text"
-            id=""
+            defaultValue={defaultData?.title}
             placeholder="Your awesome title....."
             className="bg-base-100 border border-gray-600 p-3 rounded-lg w-full mb-3 text-2xl focus:outline-none"
             required
@@ -120,7 +116,8 @@ const CreateBlog = () => {
           <ReactQuill
             modules={QuillModules}
             theme="snow"
-            value={content}
+            defaultValue={defaultData?.content}
+            value={defaultData?.content}
             onChange={setContent}
             placeholder="Your awesome content....."
           />
@@ -134,15 +131,18 @@ const CreateBlog = () => {
             {isLoading ? (
               <CategoryLoader />
             ) : (
-              categories?.data?.map((category: ICategory) => (
-                <CategoryInput
-                  key={category?.id}
-                  id={category?.id}
-                  label={category?.title}
-                  register={register}
-                  value={category.id}
-                />
-              ))
+              categories?.data?.map((category: ICategory) => {
+                return (
+                  <CategoryInput
+                    key={category?.id}
+                    id={category?.id}
+                    label={category?.title}
+                    register={register}
+                    value={category?.id}
+                    defaultCategoryId={defaultData?.categoryId}
+                  />
+                );
+              })
             )}
             <div>
               {bannerImg && (
@@ -173,12 +173,14 @@ const CreateBlog = () => {
                   label="Public"
                   register={register}
                   value={"public"}
+                  isChecked={defaultData.visibility === "public"}
                 />
                 <VisibilityInput
                   id="private"
                   label="Private"
                   register={register}
                   value={"private"}
+                  isChecked={defaultData.visibility === "private"}
                 />
               </div>
             </div>
@@ -208,4 +210,4 @@ const CreateBlog = () => {
   );
 };
 
-export default CreateBlog;
+export default EditBlog;

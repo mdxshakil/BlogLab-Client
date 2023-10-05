@@ -10,6 +10,7 @@ import CreateBlog from "../pages/CreateBlog";
 import RequireBlogger from "../components/privateRoute/RequireBlogger";
 import ManageBlogs from "../pages/dasboard/admin/ManageBlogs";
 import Bookmark from "../pages/Bookmark";
+import EditBlog from "../pages/EditBlog";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,14 @@ const router = createBrowserRouter([
         element: (
           <RequireBlogger>
             <Bookmark />
+          </RequireBlogger>
+        ),
+      },
+      {
+        path: "/edit-blog/:blogId",
+        element: (
+          <RequireBlogger>
+            <EditBlog />
           </RequireBlogger>
         ),
       },

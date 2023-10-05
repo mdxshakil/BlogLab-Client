@@ -10,12 +10,17 @@ import { useAppSelector } from "../redux/hooks";
 import { AiFillSetting } from "react-icons/ai";
 import ChooseCategory from "../components/homepage/ChooseCategory";
 import { useEffect, useState } from "react";
+import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 const Home = () => {
   const [page, setPage] = useState(1);
   const [myFeedCategoryModal, setMyFeedCategoryModal] = useState(false);
   const { profileId } = useAppSelector((state) => state.auth.user);
-  const { data: preferredBlogs } = useGetPreferredBlogsQuery({
+  const {
+    data: preferredBlogs,
+    isLoading,
+    isError,
+  } = useGetPreferredBlogsQuery({
     profileId,
     page,
   });
@@ -32,6 +37,23 @@ const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 650);
   }, [page]);
+
+  let content;
+  if (isLoading) {
+    content = <LoadingSpinner />;
+  } else if (!isLoading && isError) {
+    content = <p className="text-error">There was an error</p>;
+  } else if (
+    !isLoading &&
+    !isError &&
+    preferredBlogs?.data?.data.length === 0
+  ) {
+    content = <p className="text-error">No result available</p>;
+  } else if (!isLoading && !isError && preferredBlogs.data.data.length > 0) {
+    content = preferredBlogs?.data?.data?.map((blog: any) => (
+      <BlogCard key={blog?.id} blog={blog} />
+    ));
+  }
 
   return (
     <div className="pb-12 relative">
@@ -52,9 +74,7 @@ const Home = () => {
       <div className="flex flex-col lg:flex-row gap-6">
         <div>
           <div className="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-1 gap-3 md:gap-6 w-full px-2 md:px-0">
-            {preferredBlogs?.data?.data?.map((blog: any) => (
-              <BlogCard key={blog?.id} blog={blog} />
-            ))}
+            {content}
           </div>
           {/* pagination start */}
           <div className="flex justify-center mt-6">

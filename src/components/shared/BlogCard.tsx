@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom";
 import { truncateText } from "../../utils/textTruncate";
-import { AiOutlineCalendar } from "react-icons/ai";
+import { AiOutlineBook, AiOutlineCalendar } from "react-icons/ai";
 import CategoryBtn from "./CategoryBtn";
 import LikeBtn from "./LikeBtn";
 import CommentBtn from "./CommentBtn";
@@ -15,7 +15,6 @@ import { useEffect } from "react";
 import moment from "moment";
 
 const BlogCard = ({ blog }: { blog: any }) => {
-  
   //like a blog
   const [
     likeBlog,
@@ -56,18 +55,31 @@ const BlogCard = ({ blog }: { blog: any }) => {
         className="rounded-lg sm:w-full md:w-2/5 h-full object-cover"
       />
       <div className="flex flex-col justify-center gap-2 md:gap-4">
-        <p className="text-gray-500 text-[10px] md:text-[12px] flex items-center gap-1">
-          <span>
-            <AiOutlineCalendar />
-          </span>
-          <span>{moment(blog?.createdAt).format("ll")}</span>
-        </p>
+        <div className="flex gap-3">
+          <p className="text-gray-500 text-[10px] md:text-[12px] flex items-center gap-1">
+            <span>
+              <AiOutlineCalendar />
+            </span>
+            <span>{moment(blog?.createdAt).format("ll")}</span>
+          </p>
+          <p className="text-gray-500 text-[10px] md:text-[12px] flex items-center gap-1">
+            <span>
+              <AiOutlineBook />
+            </span>
+            <span>{blog?.timeToRead} min read</span>
+          </p>
+        </div>
         <Link to={`/blog/${blog?.id}`}>
           <h2 className="text-[12px] md:text-3xl font-[700] cursor-pointer hover:underline decoration-primary decoration-1">
             {truncateText(blog?.title, 65)}
           </h2>
         </Link>
-
+        <p className="text-gray-500 text-[10px] md:text-[12px] flex items-center gap-1">
+          <span>
+            <AiOutlineBook />
+          </span>
+          <span>{blog?.timeToRead} min read</span>
+        </p>
         <div className="flex items-center gap-0">
           <CategoryBtn category={blog?.category?.title} />
           <BookmarkBtn blogId={blog?.id} profileId={profileId} />

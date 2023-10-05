@@ -21,11 +21,11 @@ const Bookmark = () => {
   } else if (!isLoading && isError) {
     return <Error />;
   } else if (!isLoading && !isError && bookMarks?.data?.length === 0) {
-    return (
-      <p className="text-secondary text-center my-6">No result available</p>
-    );
+    return <p className="text-secondary text-center my-6">Bookmark is empty</p>;
   } else if (!isLoading && !isError && bookMarks?.data?.length > 0) {
-    content = bookMarks?.data.map((item: any) => <BookMarkRow key={item.id} blog={item} />);
+    content = bookMarks?.data.map((item: any) => (
+      <BookMarkRow key={item.id} blog={item} />
+    ));
   }
 
   return (

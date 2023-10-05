@@ -15,22 +15,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
-/* .ql-picker-label {
-  color: indianred !important;
-}
-.ql-stroke {
-  stroke: indianred !important;
-  fill: red !important;
-}
-.ql-fill {
-  stroke: indianred !important;
-  fill: red !important;
-}
-.ql-picker-item {
-  color: indianred !important;
-} */
+
 
 .ql-toolbar {
   border: 1px solid #4b5563 !important;

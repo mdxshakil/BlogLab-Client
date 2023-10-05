@@ -6,9 +6,10 @@ type IProps = {
   label: string;
   register: UseFormRegister<any>;
   value: string;
+  isChecked: boolean;
 };
 
-const VisibilityInput = ({ id, label, register, value }: IProps) => {
+const VisibilityInput = ({ id, label, register, value, isChecked }: IProps) => {
   return (
     <div className="flex items-center gap-1">
       <input
@@ -18,6 +19,7 @@ const VisibilityInput = ({ id, label, register, value }: IProps) => {
         required
         {...register("visibility")}
         value={value}
+        checked={isChecked}
       />
       <label htmlFor={id} className="cursor-pointer">
         {label}

@@ -13,7 +13,6 @@ import LoadingSpinner from "../components/shared/LoadingSpinner";
 const BlogDetails = () => {
   const { blogId } = useParams();
   const { data, isLoading, isError } = useGetBlogByIdQuery(blogId);
-
   const {
     data: authorBlogs,
     isLoading: authorBlogsLoading,

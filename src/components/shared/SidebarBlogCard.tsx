@@ -21,7 +21,7 @@ const SidebarBlogCard = ({ blog }: IProps) => {
       />
       <div>
         <Link to={`/blog/${id}`}>
-          <h3 className="font-bold text-[12px] md:text-sm pb-3 hover:underline decoration-primary decoration-1">
+          <h3 className="font-bold md:text-[12px] pb-3 hover:underline decoration-primary decoration-1">
             {truncateText(title, 30)}
           </h3>
         </Link>
@@ -31,7 +31,7 @@ const SidebarBlogCard = ({ blog }: IProps) => {
             <span>
               <AiOutlineCalendar />
             </span>
-            <span>{moment(createdAt).format("ll")}</span>
+            <span className="text-[12px]">{moment(createdAt).format("ll")}</span>
           </p>
         </div>
       </div>
