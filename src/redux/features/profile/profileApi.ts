@@ -10,7 +10,14 @@ export const profileApi = api.injectEndpoints({
         method: "PATCH",
       }),
     }),
+    getProfileInfo: builder.query({
+      query: (profileId) => ({
+        url: `/profile/${profileId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useUpdateBlogReadCountMutation } = profileApi;
+export const { useUpdateBlogReadCountMutation, useGetProfileInfoQuery } =
+  profileApi;

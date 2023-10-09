@@ -8,6 +8,7 @@ import {
 } from "../../redux/features/bookMark/bookMarkApi";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 type IProps = {
   blogId: string;
   profileId: string;
@@ -26,9 +27,15 @@ const BookmarkBtn = (payload: IProps) => {
       isSuccess: removeSuccess,
     },
   ] = useRemoveFromBookMarkMutation();
+  const navigate = useNavigate();
 
   //add to bookmark
   const handleAddToBookMark = async () => {
+    //naviagte to login page if user is not logged in
+    if (!payload?.profileId) {
+      navigate("/login");
+      toast.error("You must login to perform this action");
+    }
     await addToBookMark(payload);
   };
 

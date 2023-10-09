@@ -16,14 +16,13 @@ export const api = createApi({
   reducerPath: "api",
   baseQuery: async (args, api, extraOptions) => {
     const result = await baseQuery(args, api, extraOptions);
-    //logout user incase of forbidden or unauthorized access 
-    if (
-      result.error?.status === 401 ||
-      result.error?.status === 403 ) {
+    //logout user incase of forbidden or unauthorized access
+    if (result.error?.status === 401 || result.error?.status === 403) {
       api.dispatch(userLoggedOut());
       localStorage.removeItem("auth");
     }
     return result;
   },
-  endpoints: (builder) => ({}),
+  endpoints: () => ({}),
+  tagTypes: ["users", "blogs_for_dashboard","categories"],
 });

@@ -29,34 +29,15 @@ export const blogApi = api.injectEndpoints({
         url: `/blog/get-pending-blogs?limit=${query?.limit}&page=${query?.page}&sortBy=${query?.sortBy}&sortOrder=${query?.sortOrder}&isApproved=${query.filter}&isFeatured=${query.filter}`,
         method: "GET",
       }),
+      providesTags: ["blogs_for_dashboard"],
     }),
     approvePendingBlogs: builder.mutation({
       query: (payload) => ({
         url: "/blog/approve-pending-blogs",
         method: "PATCH",
-        body: { blogId: payload.blogId },
+        body: { blogId: payload.blogId, action: payload.action },
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        //optimistically update  cache
-        const patchResult = dispatch(
-          blogApi.util.updateQueryData(
-            "getBlogsForAdminDashboard",
-            arg.query,
-            (draft) => {
-              const unApprovedBlogs = draft.data.data.filter(
-                (blog: any) => blog.id !== arg.blogId
-              );
-              draft.data.data = unApprovedBlogs;
-            }
-          )
-        );
-        //optimistically update  cache
-        try {
-          await queryFulfilled;
-        } catch (error) {
-          patchResult.undo();
-        }
-      },
+      invalidatesTags: ["blogs_for_dashboard"],
     }),
     getPreferredBlogs: builder.query({
       query: ({ profileId, page }) => ({
@@ -162,6 +143,15 @@ export const blogApi = api.injectEndpoints({
         url: `/blog/${blogId}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["blogs_for_dashboard"],
+    }),
+    makeFeaturedBlog: builder.mutation({
+      query: (payload) => ({
+        url: `/blog/featured-list/${payload.blogId}`,
+        method: "PATCH",
+        body: { action: payload.action },
+      }),
+      invalidatesTags: ["blogs_for_dashboard"],
     }),
   }),
 });
@@ -177,4 +167,5 @@ export const {
   useLikeABlogMutation,
   useGetFeaturedBlogsQuery,
   useDeleteBlogMutation,
+  useMakeFeaturedBlogMutation,
 } = blogApi;

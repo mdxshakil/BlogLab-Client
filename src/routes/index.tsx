@@ -5,12 +5,19 @@ import Main from "../layout/Main";
 import Home from "../pages/Home";
 import BlogDetails from "../pages/BlogDetails";
 import Dashboard from "../layout/Dashboard";
-import Profile from "../pages/dasboard/Profile";
 import CreateBlog from "../pages/CreateBlog";
 import RequireBlogger from "../components/privateRoute/RequireBlogger";
-import ManageBlogs from "../pages/dasboard/admin/ManageBlogs";
 import Bookmark from "../pages/Bookmark";
 import EditBlog from "../pages/EditBlog";
+import ProfilePage from "../pages/dasboard/common/ProfilePage";
+import StatisticsPage from "../pages/dasboard/admin/StatisticsPage";
+import ManageBlogsPage from "../pages/dasboard/admin/ManageBlogsPage";
+import ManageUsersPage from "../pages/dasboard/admin/ManageUsersPage";
+import AchivementsPage from "../pages/dasboard/blogger/AchivementsPage";
+import ReadingHistoryPage from "../pages/dasboard/common/ReadingHistoryPage";
+import MyBlogsPage from "../pages/dasboard/blogger/MyBlogsPage";
+import ManageCategoryPage from "../pages/dasboard/admin/ManageCategoryPage";
+import RequireAuth from "../components/privateRoute/RequireAuth";
 
 const router = createBrowserRouter([
   {
@@ -53,19 +60,47 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <RequireAuth>
+        <Dashboard />
+      </RequireAuth>
+    ),
     children: [
       {
         path: "",
-        element: <Profile />,
+        element: <ProfilePage />,
       },
       {
-        path: "profile",
-        element: <Profile />,
+        path: "statistics",
+        element: <StatisticsPage />,
       },
       {
         path: "manage-blogs",
-        element: <ManageBlogs />,
+        element: <ManageBlogsPage />,
+      },
+      {
+        path: "manage-categories",
+        element: <ManageCategoryPage />,
+      },
+      {
+        path: "my-blogs",
+        element: (
+          <RequireBlogger>
+            <MyBlogsPage />
+          </RequireBlogger>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: <ManageUsersPage />,
+      },
+      {
+        path: "achivements",
+        element: <AchivementsPage />,
+      },
+      {
+        path: "reading-history",
+        element: <ReadingHistoryPage />,
       },
     ],
   },

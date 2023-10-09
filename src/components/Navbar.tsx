@@ -72,7 +72,9 @@ const Navbar = () => {
                 className={`btn btn-ghost btn-circle btn-sm md:btn-md avatar border-2 ${
                   user?.role === "reader"
                     ? "border-primary"
-                    : "border-secondary"
+                    : user?.role === "blogger"
+                    ? "border-secondary"
+                    : "border-red-500"
                 }`}
               >
                 <div className="sm:w-8 md:w-10 rounded-full">
@@ -109,7 +111,7 @@ const Navbar = () => {
               </button>
             </div>
           )}
-          {user.role && (
+          {user.role && user.role !== "admin" && (
             <div>
               <Link to={"/my-bookmarks"}>
                 <BsCardChecklist className="text-3xl" />

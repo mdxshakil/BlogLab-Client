@@ -4,14 +4,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-
-const RequireBlogger = ({ children }: { children: ReactNode }) => {
+const RequireAuth = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
   const { user, isLoading } = useAppSelector((state) => state.auth);
-  const { email, accountStatus, role } = user || {};
-  const from = location?.state?.from?.pathname || "/";
+  const { email, accountStatus } = user || {};
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>();
+  const from = location?.state?.from?.pathname || "/";
 
   // Check the user's authentication state.
   useEffect(() => {
@@ -20,15 +19,13 @@ const RequireBlogger = ({ children }: { children: ReactNode }) => {
     }
     if (!email) {
       setLoading(false);
-      navigate("/login");
+      navigate("/login", { replace: true, state: { from } });
     }
-    // If the user's role is not "blogger," deny access.
-    else if (role !== "blogger" || accountStatus !== "active") {
+    if (accountStatus !== "active") {
       toast.error("Account is not approved yet");
-      setLoading(false);
       navigate(from, { replace: true, state: { from } });
     }
-  }, [email, accountStatus, navigate, from, isLoading, role]);
+  }, [email, accountStatus, navigate, from, isLoading]);
 
   if (loading) {
     return <LoadingSpinner />;
@@ -37,4 +34,4 @@ const RequireBlogger = ({ children }: { children: ReactNode }) => {
   return children;
 };
 
-export default RequireBlogger;
+export default RequireAuth;

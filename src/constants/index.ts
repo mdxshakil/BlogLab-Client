@@ -23,3 +23,31 @@ export const carouselSettings = {
   autoplaySpeed: 5000,
   arrows: false,
 };
+
+export const usersFilterOptions = [
+  {
+    id:1,
+    label: "Admins",
+    value: "admin",
+  },
+  {
+    id:2,
+    label: "Bloggers",
+    value: "blogger",
+  },
+  {
+    id:3,
+    label: "Readers",
+    value: "reader",
+  },
+  {
+    id:4,
+    label: "Active (All)",
+    value: "active",
+  },
+  {
+    id:5,
+    label: "Pending Approval",
+    value: "pending",
+  },
+];

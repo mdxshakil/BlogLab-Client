@@ -3,11 +3,11 @@ import BookMarkRow from "../components/bookMark/BookMarkRow";
 import TableHeader from "../components/bookMark/TableHeader";
 import Error from "../components/error/Error";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
+import useGetUserFromStore from "../hooks/useGetUser";
 import { useGetUserBookMarkListQuery } from "../redux/features/bookMark/bookMarkApi";
-import { useAppSelector } from "../redux/hooks";
 
 const Bookmark = () => {
-  const { profileId } = useAppSelector((state) => state?.auth?.user);
+  const { profileId } = useGetUserFromStore();
   //fetch bookamrk list
   const {
     data: bookMarks,

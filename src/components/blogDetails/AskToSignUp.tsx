@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const AskToSignUp = () => {
   return (
     <div>
@@ -8,11 +10,17 @@ const AskToSignUp = () => {
         Become a member of BlogLab to start commenting
       </p>
       <div className="flex flex-col mt-4 items-center justify-center gap-3">
-        <button className="btn btn-primary btn-sm">Sign up now</button>
-        <p>
-          Already a member?{" "}
-          <span className="text-primary font-bold cursor-pointer">Sign in</span>
-        </p>
+        <Link to={"/signup"}>
+          <button className="btn btn-primary btn-sm">Sign up now</button>
+        </Link>
+        <Link to={"/login"}>
+          <p>
+            Already a member?{" "}
+            <span className="text-primary font-bold cursor-pointer">
+              Sign in
+            </span>
+          </p>
+        </Link>
       </div>
     </div>
   );

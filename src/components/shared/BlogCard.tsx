@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { truncateText } from "../../utils/textTruncate";
 import { AiOutlineBook, AiOutlineCalendar } from "react-icons/ai";
 import CategoryBtn from "./CategoryBtn";
@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import moment from "moment";
 
 const BlogCard = ({ blog }: { blog: any }) => {
+  const navigate = useNavigate();
   //like a blog
   const [
     likeBlog,
@@ -28,8 +29,12 @@ const BlogCard = ({ blog }: { blog: any }) => {
     ? true
     : false;
 
-  const handleBlogLike = () => {
-    likeBlog({ blogId: blog?.id, likerId: profileId });
+  const handleBlogLike = async () => {
+    if (!profileId) {
+      navigate("/login");
+      toast.error("You must login to perform this action");
+    }
+    await likeBlog({ blogId: blog?.id, likerId: profileId });
   };
   useEffect(() => {
     if (isError) {

@@ -32,7 +32,7 @@ const Sidebar = ({ title, children, blogs, isLoading, isError }: IProps) => {
   });
 
   return (
-    <div className="bg-base-300 w-full lg:w-2/5 h-fit md:h-screen rounded-lg sticky top-0 overflow-y-scroll">
+    <div className="bg-base-300 w-full lg:w-[50%] h-fit md:h-screen rounded-lg sticky top-0 overflow-y-scroll">
       <div className="p-6">
         {/* profile card */}
         <div>{children}</div>

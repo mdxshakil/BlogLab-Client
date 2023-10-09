@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { BiArrowFromRight, BiSolidDashboard } from "react-icons/bi";
-import { RxAvatar } from "react-icons/rx";
+import { BiArrowFromRight } from "react-icons/bi";
 import { ReactNode, useState } from "react";
-import { AiFillBook } from "react-icons/ai";
+import { SidebarLinks } from "../../constants/dashboard";
+import { useAppSelector } from "../../redux/hooks";
 
 type IProps = {
   children: ReactNode;
@@ -11,30 +11,8 @@ type IProps = {
 const Sidebar = ({ children }: IProps) => {
   const [open, setOpen] = useState(false);
   const location = useLocation().pathname;
-
-  const dashboardSideBarLinks = [
-    {
-      id: 1,
-      path: "/dashboard",
-      icon: <BiSolidDashboard className="text-sm md:text-xl" />,
-      label: "Dashboard",
-      isActive: location === "/dashboard",
-    },
-    {
-      id: 2,
-      path: "/dashboard/profile",
-      icon: <RxAvatar className="text-sm md:text-xl" />,
-      label: "Profile",
-      isActive: location === "/dashboard/profile",
-    },
-    {
-      id: 3,
-      path: "/dashboard/manage-blogs",
-      icon: <AiFillBook className="text-sm md:text-xl" />,
-      label: "Profile",
-      isActive: location === "/dashboard/manage-blogs",
-    },
-  ];
+  const { role } = useAppSelector((state) => state?.auth?.user);
+  const sidebarLinks = SidebarLinks(location, role);
 
   return (
     <div className="flex px-2 py-6">
@@ -60,7 +38,7 @@ const Sidebar = ({ children }: IProps) => {
 
         {/* sidebar menu items */}
         <div className="mt-6 overflow-y-auto text-center">
-          {dashboardSideBarLinks.map((link) => (
+          {sidebarLinks?.map((link) => (
             <Link
               key={link.id}
               to={link.path}

@@ -57,18 +57,8 @@ const authApi = api.injectEndpoints({
         }
       },
     }),
-    getSingleBook: builder.query({
-      query: (id) => ({
-        url: `/book/${id}`,
-        method: "GET",
-      }),
-    }),
   }),
 });
 
-export const {
-  useSignupMutation,
-  useLoginMutation,
-  usePersistLoginQuery,
-  useGetSingleBookQuery,
-} = authApi;
+export const { useSignupMutation, useLoginMutation, usePersistLoginQuery } =
+  authApi;
