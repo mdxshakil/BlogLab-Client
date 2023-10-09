@@ -6,7 +6,7 @@ type IProps = {
   label: string;
   register: UseFormRegister<any>;
   value: string;
-  isChecked: boolean;
+  isChecked?: boolean;
 };
 
 const VisibilityInput = ({ id, label, register, value, isChecked }: IProps) => {

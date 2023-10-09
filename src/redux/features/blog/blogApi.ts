@@ -10,7 +10,7 @@ export const blogApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
         try {
           const newBlog = await queryFulfilled;
           dispatch(

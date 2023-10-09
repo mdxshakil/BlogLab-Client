@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userLoggedOut } from "../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:5000/api/v1",
+  baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
   prepareHeaders: (headers) => {
     const auth = JSON.parse(localStorage.getItem("auth") as string);
     if (auth) {

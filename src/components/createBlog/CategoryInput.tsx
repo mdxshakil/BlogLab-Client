@@ -6,7 +6,7 @@ type IProps = {
   label: string;
   register: UseFormRegister<any>;
   value: string;
-  defaultCategoryId: string;
+  defaultCategoryId?: string;
 };
 
 const CategoryInput = ({
