@@ -18,6 +18,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("auth");
     dispatch(userLoggedOut());
+    navigate("/");
   };
 
   //navbar scroll changeBackground function

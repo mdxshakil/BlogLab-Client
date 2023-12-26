@@ -95,6 +95,12 @@ const categoryApi = api.injectEndpoints({
         }
       },
     }),
+    getCategorizedBlogs: builder.query({
+      query: ({ category, page, limit, sortBy, sortOrder }) => ({
+        url: `category/categorized-blogs/${category}?page=${page}&limit=${limit}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -104,4 +110,5 @@ export const {
   useGetUsersSelectedCategoryQuery,
   useFollowUnfollowCategoryMutation,
   useCreateNewCategoryMutation,
+  useGetCategorizedBlogsQuery,
 } = categoryApi;

@@ -1,21 +1,24 @@
 import { useThemeMode } from "../hooks/useThemeMode";
 import SubmitBtn from "../components/auth/SubmitBtn";
-import GoogleBtn from "../components/auth/GoogleBtn";
 import FormHeading from "../components/auth/FormHeading";
 import FormFooter from "../components/auth/FormFooter";
 import { useForm, FieldValues } from "react-hook-form";
 import PasswordField from "../components/auth/PasswordField";
 import TextField from "../components/auth/TextField";
 import { useLoginMutation } from "../redux/features/auth/authApi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuthCheck } from "../hooks/useAuthCheck";
+import Credentials from "../components/Credentials";
 
 const Login = () => {
   //dont allow login page if user is already logged in
   useAuthCheck();
   const navigate = useNavigate();
+  const [showReaderCredentials, setShowReaderCredentials] = useState(false);
+  const [showBloggerCredentials, setShowBloggerCredentials] = useState(false);
+  const [showAdminCredentials, setShowAdminCredentials] = useState(false);
   const {
     register,
     handleSubmit,
@@ -67,10 +70,50 @@ const Login = () => {
             />
             <SubmitBtn isLoading={isLoading} />
           </form>
-          <div className="divider">or</div>
-          <GoogleBtn />
-          <div className="mt-5 text-xs py-4 text-primary">
-            <p>Forgot your password?</p>
+          {/* <div className="divider">or</div> */}
+          {/* <GoogleBtn /> */}
+          <div>
+            <div className="py-4 flex gap-2">
+              <button
+                onClick={() => {
+                  setShowReaderCredentials(!showReaderCredentials);
+                  setShowBloggerCredentials(false);
+                  setShowAdminCredentials(false);
+                }}
+                className="btn btn-xs"
+              >
+                Reader
+              </button>
+              <button
+                onClick={() => {
+                  setShowBloggerCredentials(!showBloggerCredentials);
+                  setShowReaderCredentials(false);
+                  setShowAdminCredentials(false);
+                }}
+                className="btn btn-xs"
+              >
+                Blogger
+              </button>
+              <button
+                onClick={() => {
+                  setShowAdminCredentials(!showAdminCredentials);
+                  setShowReaderCredentials(false);
+                  setShowBloggerCredentials(false);
+                }}
+                className="btn btn-xs"
+              >
+                Admin
+              </button>
+            </div>
+            {showReaderCredentials && (
+              <Credentials email="bill@gmail.com" password="111111" />
+            )}
+            {showBloggerCredentials && (
+              <Credentials email="sakib@gmail.com" password="111111" />
+            )}
+            {showAdminCredentials && (
+              <Credentials email="admin@gmail.com" password="123456" />
+            )}
           </div>
           <div className="divider p-0 m-0"></div>
           <FormFooter label="Don't have an account?" path="/signup" />

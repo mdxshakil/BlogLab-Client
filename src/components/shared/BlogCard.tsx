@@ -79,12 +79,6 @@ const BlogCard = ({ blog }: { blog: any }) => {
             {truncateText(blog?.title, 65)}
           </h2>
         </Link>
-        <p className="text-gray-500 text-[10px] md:text-[12px] flex items-center gap-1">
-          <span>
-            <AiOutlineBook />
-          </span>
-          <span>{blog?.timeToRead} min read</span>
-        </p>
         <div className="flex items-center gap-0">
           <CategoryBtn category={blog?.category?.title} />
           <BookmarkBtn blogId={blog?.id} profileId={profileId} />

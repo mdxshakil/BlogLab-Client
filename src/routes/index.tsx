@@ -18,6 +18,8 @@ import ReadingHistoryPage from "../pages/dasboard/common/ReadingHistoryPage";
 import MyBlogsPage from "../pages/dasboard/blogger/MyBlogsPage";
 import ManageCategoryPage from "../pages/dasboard/admin/ManageCategoryPage";
 import RequireAuth from "../components/privateRoute/RequireAuth";
+import CategorizedBlogs from "../pages/CategorizedBlogs";
+import BlogSearchPage from "../pages/BlogSearchPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
       {
         path: "/blog/:blogId",
         element: <BlogDetails />,
+      },
+      {
+        path: "/category/:category",
+        element: <CategorizedBlogs />,
+      },
+      {
+        path: "/search-result/:searchTerm",
+        element: <BlogSearchPage />,
       },
       {
         path: "/create-new-blog",

@@ -21,7 +21,7 @@ const BlogDetails = () => {
 
   let blogDetailsContent;
   if (isLoading) {
-    blogDetailsContent = <LoadingSpinner />;
+    return <LoadingSpinner />;
   } else if (!isLoading && isError) {
     blogDetailsContent = <p className="text-error">An error occured</p>;
   } else if (!isLoading && !isError && authorBlogs?.data?.length === 0) {

@@ -12,7 +12,7 @@ const SubmitBtn = ({ isLoading }: IProps) => {
       {isLoading ? (
         <span className="loading loading-spinner"></span>
       ) : (
-        <span>Signup</span>
+        <span>Submit</span>
       )}
     </button>
   );

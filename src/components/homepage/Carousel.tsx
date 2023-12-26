@@ -14,7 +14,7 @@ const Carousel = () => {
     return <LoadingSpinner />;
   }
   return (
-    <div className="min-h-[88dvh] flex flex-col items-center justify-center bg-base-300 border border-primary rounded-[15px] my-12">
+    <div className=" flex flex-col items-center justify-center bg-base-300  rounded-[15px] my-6 p-6">
       <h1 className="text-4xl font-bold text-center">Featured Blogs</h1>
       <div className="w-full">
         <Slider {...carouselSettings}>

@@ -1,11 +1,11 @@
 import { Outlet, ScrollRestoration, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { useAppSelector } from "../redux/hooks";
 import { useEffect } from "react";
+import useGetUserFromStore from "../hooks/useGetUser";
 
 const Main = () => {
-  const { role } = useAppSelector((state) => state?.auth?.user);
+  const { role } = useGetUserFromStore();
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -153,6 +153,12 @@ export const blogApi = api.injectEndpoints({
       }),
       invalidatesTags: ["blogs_for_dashboard"],
     }),
+    getBlogsBySearchTerm: builder.query({
+      query: ({ searchTerm, page, limit, sortBy, sortOrder }) => ({
+        url: `/blog/search-result?searchTerm=${searchTerm}&page=${page}&limit=${limit}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -168,4 +174,5 @@ export const {
   useGetFeaturedBlogsQuery,
   useDeleteBlogMutation,
   useMakeFeaturedBlogMutation,
+  useGetBlogsBySearchTermQuery,
 } = blogApi;

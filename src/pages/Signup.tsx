@@ -2,7 +2,6 @@
 import { useThemeMode } from "../hooks/useThemeMode";
 import TermsCheckbox from "../components/auth/TermsCheckbox";
 import SubmitBtn from "../components/auth/SubmitBtn";
-import GoogleBtn from "../components/auth/GoogleBtn";
 import FormHeading from "../components/auth/FormHeading";
 import FormFooter from "../components/auth/FormFooter";
 import { useForm, FieldValues } from "react-hook-form";
@@ -153,8 +152,8 @@ const Signup = () => {
             <TermsCheckbox register={register} errors={errors} />
             <SubmitBtn isLoading={isLoading} />
           </form>
-          <div className="divider">or</div>
-          <GoogleBtn />
+          <div className="divider"></div>
+          {/* <GoogleBtn /> */}
           <FormFooter label="Already have an account?" path="/login" />
         </div>
       </div>

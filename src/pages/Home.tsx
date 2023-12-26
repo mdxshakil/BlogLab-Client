@@ -9,8 +9,9 @@ import {
 import { useAppSelector } from "../redux/hooks";
 import { AiFillSetting } from "react-icons/ai";
 import ChooseCategory from "../components/homepage/ChooseCategory";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
+import SearchBar from "../components/shared/SearchBar";
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -34,13 +35,9 @@ const Home = () => {
     setMyFeedCategoryModal(!myFeedCategoryModal);
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 650);
-  }, [page]);
-
   let content;
   if (isLoading) {
-    content = <LoadingSpinner />;
+    return <LoadingSpinner />;
   } else if (!isLoading && isError) {
     content = <p className="text-error">There was an error</p>;
   } else if (
@@ -49,24 +46,29 @@ const Home = () => {
     preferredBlogs?.data?.data.length === 0
   ) {
     content = <p className="text-error">No result available</p>;
-  } else if (!isLoading && !isError && preferredBlogs.data.data.length > 0) {
+  } else if (!isLoading && !isError && preferredBlogs?.data?.data?.length > 0) {
     content = preferredBlogs?.data?.data?.map((blog: any) => (
       <BlogCard key={blog?.id} blog={blog} />
     ));
   }
 
   return (
-    <div className="pb-12 relative">
-      <Carousel />
-      <div>
-        <button
-          className="flex items-center gap-2 my-6 btn bg-transparent border-0"
-          onClick={() => handleCategoryChooseModal()}
-        >
-          <span className="font-bold text-lg">My Feed</span>
-          <AiFillSetting className="h-6 w-6" />
-        </button>
+    <div className="py-6 relative">
+      <div className="">
+        <SearchBar />
       </div>
+      <Carousel />
+      {profileId && (
+        <div>
+          <button
+            className="flex items-center gap-2 my-6 btn bg-transparent border-0"
+            onClick={() => handleCategoryChooseModal()}
+          >
+            <span className="font-bold text-lg">My Feed</span>
+            <AiFillSetting className="h-6 w-6" />
+          </button>
+        </div>
+      )}
       {/* modal */}
       {myFeedCategoryModal && (
         <ChooseCategory handleCategoryChooseModal={handleCategoryChooseModal} />
