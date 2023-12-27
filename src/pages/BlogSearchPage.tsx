@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from "react-router-dom";
 import { useGetBlogsBySearchTermQuery } from "../redux/features/blog/blogApi";
@@ -10,8 +13,11 @@ import SearchBar from "../components/shared/SearchBar";
 const BlogSearchPage = () => {
   const { searchTerm } = useParams();
   const [page, setPage] = useState(1);
+  // @ts-ignore
   const [limit, setLimit] = useState(2);
+  // @ts-ignore
   const [sortBy, setSoryBy] = useState("createdAt");
+  // @ts-ignore
   const [sortOrder, setSortOrder] = useState("desc");
 
   const {

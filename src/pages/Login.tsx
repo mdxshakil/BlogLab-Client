@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuthCheck } from "../hooks/useAuthCheck";
 import Credentials from "../components/Credentials";
+import CredentialButton from "../components/CredentialButton";
 
 const Login = () => {
   //dont allow login page if user is already logged in
@@ -70,40 +71,35 @@ const Login = () => {
             />
             <SubmitBtn isLoading={isLoading} />
           </form>
-          {/* <div className="divider">or</div> */}
-          {/* <GoogleBtn /> */}
           <div>
             <div className="py-4 flex gap-2">
-              <button
+              <CredentialButton
+                buttonText="Reader"
+                isActive={showReaderCredentials}
                 onClick={() => {
                   setShowReaderCredentials(!showReaderCredentials);
                   setShowBloggerCredentials(false);
                   setShowAdminCredentials(false);
                 }}
-                className="btn btn-xs"
-              >
-                Reader
-              </button>
-              <button
+              />
+              <CredentialButton
+                buttonText="Blogger"
+                isActive={showBloggerCredentials}
                 onClick={() => {
                   setShowBloggerCredentials(!showBloggerCredentials);
                   setShowReaderCredentials(false);
                   setShowAdminCredentials(false);
                 }}
-                className="btn btn-xs"
-              >
-                Blogger
-              </button>
-              <button
+              />
+              <CredentialButton
+                buttonText="Admin"
+                isActive={showAdminCredentials}
                 onClick={() => {
                   setShowAdminCredentials(!showAdminCredentials);
                   setShowReaderCredentials(false);
                   setShowBloggerCredentials(false);
                 }}
-                className="btn btn-xs"
-              >
-                Admin
-              </button>
+              />
             </div>
             {showReaderCredentials && (
               <Credentials email="bill@gmail.com" password="111111" />

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -11,8 +12,11 @@ import { useState } from "react";
 const CategorizedBlogs = () => {
   const { category } = useParams();
   const [page, setPage] = useState(1);
+  // @ts-ignore
   const [limit, setLimit] = useState(10);
+  // @ts-ignore
   const [sortBy, setSoryBy] = useState("createdAt");
+  // @ts-ignore
   const [sortOrder, setSortOrder] = useState("desc");
 
   const {
