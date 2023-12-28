@@ -133,8 +133,8 @@ export const blogApi = api.injectEndpoints({
       },
     }),
     getFeaturedBlogs: builder.query({
-      query: () => ({
-        url: "/blog/featured-blogs",
+      query: ({ skip, limit }) => ({
+        url: `/blog/featured-blogs?skip=${skip}&limit=${limit}`,
         method: "GET",
       }),
     }),

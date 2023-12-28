@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-undefined */
-import { useGetMostLikedBlogsQuery } from "../../redux/features/blog/blogApi";
-import BlogCardVertical from "../BlogCardVertical";
+import { useGetFeaturedBlogsQuery } from "../../redux/features/blog/blogApi";
+import BlogCard from "../shared/BlogCard";
 import LoadingSpinner from "../shared/LoadingSpinner";
 
-export default function MostLikedPosts() {
+export default function FeaturedPosts() {
   const {
     data: blogs,
     isLoading,
     isError,
-  } = useGetMostLikedBlogsQuery(undefined);
+  } = useGetFeaturedBlogsQuery({ skip: 3, limit: 6 });
 
   let content;
   if (isLoading) {
@@ -20,15 +20,15 @@ export default function MostLikedPosts() {
     content = <p className="text-error">No result available</p>;
   } else if (!isLoading && !isError && blogs?.data?.length > 0) {
     content = blogs?.data?.map((blog: any) => (
-      <BlogCardVertical key={blog?.id} blog={blog} />
+      <BlogCard key={blog?.id} blog={blog} />
     ));
   }
   return (
     <div className="my-12 md:my-24">
-      <h2 className="font-bold md:text-2xl text-lg mb-6 inline-block border-b-2 border-primary ">Most Liked Posts</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {content}
-      </div>
+      <h2 className="font-bold md:text-2xl text-lg mb-6 border-b-2 border-primary inline-block">
+        More Featured Blogs
+      </h2>
+      <div className="grid grid-cols-1 gap-4">{content}</div>
     </div>
   );
 }

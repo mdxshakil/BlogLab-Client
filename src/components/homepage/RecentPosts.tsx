@@ -1,15 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-undefined */
-import { useGetMostLikedBlogsQuery } from "../../redux/features/blog/blogApi";
+import { useGetLatestBlogsQuery } from "../../redux/features/blog/blogApi";
 import BlogCardVertical from "../BlogCardVertical";
 import LoadingSpinner from "../shared/LoadingSpinner";
 
-export default function MostLikedPosts() {
-  const {
-    data: blogs,
-    isLoading,
-    isError,
-  } = useGetMostLikedBlogsQuery(undefined);
+export default function RecentPosts() {
+  const { data: blogs, isLoading, isError } = useGetLatestBlogsQuery(undefined);
 
   let content;
   if (isLoading) {
@@ -25,8 +21,10 @@ export default function MostLikedPosts() {
   }
   return (
     <div className="my-12 md:my-24">
-      <h2 className="font-bold md:text-2xl text-lg mb-6 inline-block border-b-2 border-primary ">Most Liked Posts</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <h2 className="font-bold md:text-2xl text-lg mb-6 border-b-2 border-primary inline-block">
+        Most Recent Posts and Articles
+      </h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {content}
       </div>
     </div>

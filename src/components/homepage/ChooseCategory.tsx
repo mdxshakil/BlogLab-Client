@@ -25,7 +25,7 @@ const ChooseCategory = ({ handleCategoryChooseModal }: IProps) => {
   return (
     <div className="fixed top-0 left-0 z-10 w-full h-screen flex justify-center items-center backdrop-blur-sm">
       <div
-        className="relative w-full md:w-3/4 p-6 bg-base-300 rounded-lg m-12 border border-secondary h-1/2"
+        className="relative w-full md:w-3/4 p-6 bg-base-300 rounded-lg m-12 h-1/2"
         onClick={(e) => e.stopPropagation()}
       >
         <AiFillCloseCircle

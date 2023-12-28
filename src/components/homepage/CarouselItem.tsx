@@ -12,12 +12,12 @@ const CarouselItem = ({ blog }: { blog: any }) => {
   const { profileId } = useAppSelector((state) => state?.auth?.user);
   const { title, createdAt, category, author, id, banner } = blog || {};
   return (
-    <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 p-12 ">
+    <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 p-12">
       <div className="order-last lg:order-first relative">
         <img
           src={banner}
           alt=""
-          className="rounded-lg object-cover w-full border-primary h-[150px] md:h-[300px]"
+          className="rounded-lg object-cover w-full border-primary"
         />
       </div>
       <div className="flex flex-col justify-center gap-2 md:gap-4">

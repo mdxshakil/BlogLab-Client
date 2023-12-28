@@ -53,11 +53,11 @@ const BlogCard = ({ blog }: { blog: any }) => {
   }, [isError, isSuccess, error, data?.data?.message]);
 
   return (
-    <div className="flex flex-col md:flex-row items-start lg:items-center gap-6 bg-base-300 shadow-xl rounded-lg p-3 md:p-6">
+    <div className="flex flex-row items-start lg:items-center gap-6 bg-base-300 shadow-xl rounded-lg p-3 md:p-6">
       <img
         src={blog?.banner}
         alt="Movie"
-        className="rounded-lg sm:w-full md:w-2/5 h-full object-cover"
+        className="rounded-lg w-2/5 object-cover h-full"
       />
       <div className="flex flex-col justify-center gap-2 md:gap-4">
         <div className="flex gap-3">
