@@ -159,6 +159,12 @@ export const blogApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    getMostLikedBlogs: builder.query({
+      query: () => ({
+        url: "/blog/most-liked-blogs",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -175,4 +181,5 @@ export const {
   useDeleteBlogMutation,
   useMakeFeaturedBlogMutation,
   useGetBlogsBySearchTermQuery,
+  useGetMostLikedBlogsQuery,
 } = blogApi;

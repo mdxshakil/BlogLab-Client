@@ -50,7 +50,7 @@ const Login = () => {
         <div className=" px-6 w-full">
           <FormHeading
             title="Login"
-            message="Already a member? easily login."
+            message="Already a member? Easily login."
           />
           <form
             className="flex flex-col gap-4"

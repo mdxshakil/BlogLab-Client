@@ -12,6 +12,7 @@ import ChooseCategory from "../components/homepage/ChooseCategory";
 import { useState } from "react";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 import SearchBar from "../components/shared/SearchBar";
+import MostLikedPosts from "../components/homepage/MostLikedPosts";
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -64,7 +65,7 @@ const Home = () => {
             className="flex items-center gap-2 my-6 btn bg-transparent border-0"
             onClick={() => handleCategoryChooseModal()}
           >
-            <span className="font-bold text-lg">My Feed</span>
+            <span className="font-bold md:text-2xl text-lg">My Feed</span>
             <AiFillSetting className="h-6 w-6" />
           </button>
         </div>
@@ -107,7 +108,7 @@ const Home = () => {
           isError={latestBlogsError}
         />
       </div>
-      {/* planning to add infinite scroll here */}
+      <MostLikedPosts />
     </div>
   );
 };
