@@ -5,6 +5,7 @@ import MostLikedPosts from "../components/homepage/MostLikedPosts";
 import RecentPosts from "../components/homepage/RecentPosts";
 import MyFeed from "../components/homepage/MyFeed";
 import FeaturedPosts from "../components/homepage/FeaturedPosts";
+import AboutUs from "../components/homepage/AboutUs";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <MostLikedPosts />
       <RecentPosts />
       <FeaturedPosts />
+      <AboutUs />
     </div>
   );
 };

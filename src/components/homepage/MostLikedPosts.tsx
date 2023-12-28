@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-undefined */
+import { AiFillLike } from "react-icons/ai";
 import { useGetMostLikedBlogsQuery } from "../../redux/features/blog/blogApi";
 import BlogCardVertical from "../BlogCardVertical";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -24,8 +25,10 @@ export default function MostLikedPosts() {
     ));
   }
   return (
-    <div className="my-12 md:my-24">
-      <h2 className="font-bold md:text-2xl text-lg mb-6 inline-block border-b-2 border-primary ">Most Liked Posts</h2>
+    <div className="mt-24 md:mt-48">
+      <h2 className="font-bold md:text-3xl text-lg mb-6 flex items-center gap-2">
+        Most Liked Posts <AiFillLike className="text-primary h-6 w-6" />
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {content}
       </div>

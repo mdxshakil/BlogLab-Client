@@ -12,6 +12,9 @@ export default {
         'hero-bg': "url('./src/assets/images/hero-bg.jpg')",
       },
     },
+    animation:{
+      float:"floatAnimation"
+    }
   },
   plugins: [require("daisyui")],
   daisyui: {

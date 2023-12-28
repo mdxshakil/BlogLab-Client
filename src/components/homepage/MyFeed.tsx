@@ -50,16 +50,16 @@ export default function MyFeed() {
     ));
   }
   return (
-    <div>
+    <div className="mt-24 md:mt-48">
       {profileId && (
         <div>
-          <button
-            className="flex items-center gap-2 my-6 btn bg-transparent border-0"
+          <h2
+            className="flex items-center gap-2 my-6 font-bold md:text-3xl text-lg cursor-pointer group"
             onClick={() => handleCategoryChooseModal()}
           >
-            <span className="font-bold md:text-2xl text-lg">My Feed</span>
-            <AiFillSetting className="h-6 w-6 text-primary" />
-          </button>
+            My Feed
+            <AiFillSetting className="h-6 w-6 text-primary group-hover:rotate-90 duration-500" />
+          </h2>
         </div>
       )}
       {/* modal */}
