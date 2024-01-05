@@ -5,8 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLoggedOut } from "../redux/features/auth/authSlice";
-import { BsCardChecklist } from "react-icons/bs";
-import { AiOutlineMenu } from "react-icons/ai";
+import { BsBookmark, BsPlusCircle } from "react-icons/bs";
 
 const Navbar = () => {
   const [isScrolling, setIsScrolling] = useState(false);
@@ -42,24 +41,43 @@ const Navbar = () => {
         isScrolling ? "top-0 bg-none backdrop-blur-3xl" : "top-3 bg-base-300"
       }  sticky z-50 rounded-lg px-2 md:px-6`}
     >
+      {/* logo */}
       <div className="navbar-start">
-        <div className="dropdown">
+        {/* <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
             <AiOutlineMenu className="h-5 w-5" />
           </label>
-        </div>
+        </div> */}
         <Link to="/">
           <img
             src={themeMode === "dark" ? darkLogo : lightLogo}
             alt="BlogLab"
             // className="h-4 w-30 md:h-6 md:w-42"
-            className="w-3/4 md:w-2/5"
+            className="w-2/3 md:w-2/5"
           />
         </Link>
       </div>
       <div className="navbar-end">
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 md:gap-4 items-center">
           <ThemeChanger />
+          {/* bookmark button */}
+          {user.role && user.role !== "admin" && (
+            <div>
+              <Link to={"/my-bookmarks"}>
+                <BsBookmark className="text:lg md:text-xl cursor-pointer" />
+              </Link>
+            </div>
+          )}
+          {/* post blog button */}
+          {user && user.role === "blogger" && (
+            <div>
+              <BsPlusCircle
+                className="text:lg md:text-xl cursor-pointer"
+                onClick={() => navigate("/create-new-blog")}
+              />
+            </div>
+          )}
+          {/* profile and login button */}
           {!user.email ? (
             <div>
               <Link to="/login">
@@ -70,7 +88,7 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label
                 tabIndex={0}
-                className={`btn btn-ghost btn-circle btn-sm md:btn-md avatar border-2 ${
+                className={`btn btn-ghost btn-circle btn-xs md:btn-md avatar border-2 ${
                   user?.role === "reader"
                     ? "border-primary"
                     : user?.role === "blogger"
@@ -96,27 +114,6 @@ const Navbar = () => {
                   <button onClick={handleLogout}>Logout</button>
                 </li>
               </ul>
-            </div>
-          )}
-          {user && user.role === "blogger" && (
-            <div>
-              <button
-                className="btn btn-sm btn-primary"
-                disabled={
-                  user.accountStatus === "pending" ||
-                  user.accountStatus === "blocked"
-                }
-                onClick={() => navigate("/create-new-blog")}
-              >
-                Post blog
-              </button>
-            </div>
-          )}
-          {user.role && user.role !== "admin" && (
-            <div>
-              <Link to={"/my-bookmarks"}>
-                <BsCardChecklist className="text-3xl" />
-              </Link>
             </div>
           )}
         </div>
