@@ -21,7 +21,7 @@ function SearchBar() {
 
   return (
     <div className="mt-8">
-      <form className="w-full md:w-1/2 mx-auto" onSubmit={(e) => handleSearch(e)}>
+      <form className="w-full mx-auto" onSubmit={(e) => handleSearch(e)}>
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -43,7 +43,7 @@ function SearchBar() {
           />
           <button
             type="submit"
-            className="btn-primary absolute right-2.5 bottom-2.5  font-medium rounded-full text-sm px-4 py-2"
+            className="btn-primary absolute right-2.5 bottom-2.5  font-medium rounded-full text-xs md:text-sm px-4 py-2"
           >
             Search
           </button>

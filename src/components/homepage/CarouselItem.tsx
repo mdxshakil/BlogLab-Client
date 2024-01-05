@@ -18,7 +18,7 @@ const CarouselItem = ({ blog }: { blog: any }) => {
         <img
           src={banner}
           alt=""
-          className="rounded-lg object-cover w-full border-primary"
+          className="rounded-lg object-cover aspect-video w-full border-primary"
         />
       </div>
       <div className="flex flex-col justify-center gap-2 md:gap-4">
@@ -38,7 +38,7 @@ const CarouselItem = ({ blog }: { blog: any }) => {
         </div>
         <Link to={`/blog/${id}`}>
           <h2 className="text-xl md:text-4xl font-bold cursor-pointer hover:underline decoration-primary decoration-1">
-            {truncateText(title, 65)}
+            {truncateText(title, 35)}
           </h2>
         </Link>
         <div className="flex">

@@ -62,7 +62,7 @@ const Navbar = () => {
           <ThemeChanger />
           {/* bookmark button */}
           {user.role && user.role !== "admin" && (
-            <div>
+            <div className="tooltip" data-tip="Bookmark">
               <Link to={"/my-bookmarks"}>
                 <BsBookmark className="text:lg md:text-xl cursor-pointer" />
               </Link>
@@ -70,7 +70,7 @@ const Navbar = () => {
           )}
           {/* post blog button */}
           {user && user.role === "blogger" && (
-            <div>
+            <div className="tooltip" data-tip="Post Blog">
               <BsPlusCircle
                 className="text:lg md:text-xl cursor-pointer"
                 onClick={() => navigate("/create-new-blog")}
@@ -107,7 +107,6 @@ const Navbar = () => {
                 <li>
                   <Link to={"/dashboard"} className="justify-between">
                     Dashboard
-                    <span className="badge">New</span>
                   </Link>
                 </li>
                 <li>

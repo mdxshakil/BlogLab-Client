@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { truncateText } from "../../utils/textTruncate";
 import { AiFillDelete } from "react-icons/ai";
 import { useRemoveFromBookMarkMutation } from "../../redux/features/bookMark/bookMarkApi";
@@ -9,9 +9,16 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 const BookMarkRow = ({ blog }: { blog: any }) => {
+  const navigate = useNavigate();
   const { profileId } = useAppSelector((state) => state?.auth?.user);
   const { author, banner, id, title, category } = blog.blog || {};
-  const { firstName, lastName, profilePicture, bloggerLevel } = author || {};
+  const {
+    firstName,
+    lastName,
+    profilePicture,
+    bloggerLevel,
+    id: authorId,
+  } = author || {};
   const [removeFromBookMark, { isLoading, isError }] =
     useRemoveFromBookMarkMutation();
 
@@ -35,8 +42,8 @@ const BookMarkRow = ({ blog }: { blog: any }) => {
               <img src={profilePicture} alt="Avatar Tailwind CSS Component" />
             </div>
           </div>
-          <div>
-            <div className="font-bold">{`${firstName} ${lastName}`}</div>
+          <div onClick={() => navigate(`/profile/${authorId}`)}>
+            <div className="font-bold cursor-pointer">{`${firstName} ${lastName}`}</div>
             <div className="text-sm opacity-50">{bloggerLevel}</div>
           </div>
         </div>

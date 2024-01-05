@@ -45,13 +45,39 @@ export default function MyFeed() {
   ) {
     content = <p className="text-error">No result available</p>;
   } else if (!isLoading && !isError && preferredBlogs?.data?.data?.length > 0) {
-    content = preferredBlogs?.data?.data?.map((blog: any) => (
-      <BlogCard key={blog?.id} blog={blog} />
-    ));
+    content = (
+      <div className="grid grid-cols-1 gap-3 md:gap-6 w-full px-2 md:px-0">
+        {preferredBlogs?.data?.data?.map((blog: any) => (
+          <BlogCard key={blog?.id} blog={blog} />
+        ))}
+
+        {/* pagination start */}
+        <div className="flex justify-center mt-6">
+          <div className="join">
+            <button
+              className="join-item btn bg-base-300"
+              onClick={() => setPage((prevPage) => prevPage - 1)}
+              disabled={page === 1}
+            >
+              «
+            </button>
+            <button className="join-item btn bg-base-300">{page}</button>
+            <button
+              className="join-item btn bg-base-300"
+              onClick={() => setPage((prevPage) => prevPage + 1)}
+              disabled={preferredBlogs?.data?.meta?.pageCount === page}
+            >
+              »
+            </button>
+          </div>
+        </div>
+        {/* pagination end */}
+      </div>
+    );
   }
-  
+
   return (
-    <div className="mt-24 md:mt-48">
+    <div className="mb-12">
       {profileId && (
         <div>
           <h2
@@ -68,32 +94,7 @@ export default function MyFeed() {
         <ChooseCategory handleCategoryChooseModal={handleCategoryChooseModal} />
       )}
       <div className="flex flex-col lg:flex-row gap-6">
-        <div>
-          <div className="grid grid-cols-1 gap-3 md:gap-6 w-full px-2 md:px-0">
-            {content}
-          </div>
-          {/* pagination start */}
-          <div className="flex justify-center mt-6">
-            <div className="join">
-              <button
-                className="join-item btn bg-base-300"
-                onClick={() => setPage((prevPage) => prevPage - 1)}
-                disabled={page === 1}
-              >
-                «
-              </button>
-              <button className="join-item btn bg-base-300">{page}</button>
-              <button
-                className="join-item btn bg-base-300"
-                onClick={() => setPage((prevPage) => prevPage + 1)}
-                disabled={preferredBlogs?.data?.meta?.pageCount === page}
-              >
-                »
-              </button>
-            </div>
-          </div>
-          {/* pagination end */}
-        </div>
+        <div className="flex-grow">{content}</div>
         <Sidebar
           title="Latest posts"
           blogs={latestBlogs}

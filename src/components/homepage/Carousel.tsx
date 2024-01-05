@@ -16,9 +16,11 @@ const Carousel = () => {
     return <LoadingSpinner />;
   }
   return (
-    <div className="flex flex-col items-center justify-center bg-base-300  rounded-[15px] my-6 p-6 mb-24">
-      <h1 className="text-4xl font-bold text-center">Featured Blogs</h1>
-      <div className="w-full">
+    <div className="bg-base-300 rounded-[15px] mb-12">
+      <h1 className="text-3xl md:text-4xl font-bold text-center pt-6">
+        Featured Blogs
+      </h1>
+      <div className="pb-6 md:pb-12">
         <Slider {...carouselSettings}>
           {featuredBlogs?.data?.map((blog: any) => {
             return <CarouselItem key={blog?.id} blog={blog} />;

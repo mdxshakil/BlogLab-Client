@@ -57,7 +57,7 @@ const BlogCard = ({ blog }: { blog: any }) => {
       <img
         src={blog?.banner}
         alt="Movie"
-        className="rounded-lg w-2/5 object-cover h-full"
+        className="rounded-lg w-2/5 object-cover aspect-video h-full"
       />
       <div className="flex flex-col justify-center gap-2 md:gap-4">
         <div className="flex gap-3">

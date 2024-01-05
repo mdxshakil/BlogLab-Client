@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-undefined */
-import { AiFillBell } from "react-icons/ai";
 import { useGetFeaturedBlogsQuery } from "../../redux/features/blog/blogApi";
 import BlogCard from "../shared/BlogCard";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -25,10 +24,9 @@ export default function FeaturedPosts() {
     ));
   }
   return (
-    <div className="mt-24 md:mt-48">
-      <h2 className="font-bold md:text-3xl text-lg mb-6 flex items-center gap-2">
+    <div className="mb-12 md:mb-16">
+      <h2 className="font-bold md:text-3xl text-lg mb-6">
         More Featured Blogs
-        <AiFillBell className="text-primary h-6 w-6" />
       </h2>
       <div className="grid grid-cols-1 gap-3 md:gap-6">{content}</div>
     </div>

@@ -21,7 +21,7 @@ export const carouselSettings = {
   slidesToScroll: 1,
   autoplay: true,
   autoplaySpeed: 5000,
-  arrows: false,
+  arrows: true,
 };
 
 export const usersFilterOptions = [
