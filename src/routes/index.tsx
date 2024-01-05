@@ -20,6 +20,7 @@ import ManageCategoryPage from "../pages/dasboard/admin/ManageCategoryPage";
 import RequireAuth from "../components/privateRoute/RequireAuth";
 import CategorizedBlogs from "../pages/CategorizedBlogs";
 import BlogSearchPage from "../pages/BlogSearchPage";
+import BloggerPublicProfilePage from "../pages/dasboard/blogger/BloggerPublicProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
             <CreateBlog />
           </RequireBlogger>
         ),
+      },
+      {
+        path: "/profile/:profileId",
+        element: <BloggerPublicProfilePage />,
       },
       {
         path: "/my-bookmarks",

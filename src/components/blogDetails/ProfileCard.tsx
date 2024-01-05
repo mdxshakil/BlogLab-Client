@@ -1,8 +1,11 @@
+import { Link } from "react-router-dom";
+
 type Author = {
   firstName: string;
   lastName: string;
   profilePicture: string;
   bloggerLevel: string;
+  id: string;
 };
 
 type IProps = {
@@ -10,7 +13,9 @@ type IProps = {
 };
 
 const ProfileCard = ({ author }: IProps) => {
-  const { firstName, lastName, profilePicture, bloggerLevel } = author || {};
+  const { firstName, lastName, profilePicture, bloggerLevel, id } =
+    author || {};
+
   return (
     <div className="flex items-center justify-center mb-6 bg-base-200 rounded-lg py-10">
       <div className="flex flex-col gap-3 items-center justify-center">
@@ -30,7 +35,7 @@ const ProfileCard = ({ author }: IProps) => {
           <p>Follow</p>
         </div>
         <button className="btn btn-sm rounded-lg btn-primary">
-          View Profile
+          <Link to={`/profile/${id}`}>View Profile</Link>
         </button>
       </div>
     </div>

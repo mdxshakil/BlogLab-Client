@@ -49,6 +49,7 @@ export default function MyFeed() {
       <BlogCard key={blog?.id} blog={blog} />
     ));
   }
+  
   return (
     <div className="mt-24 md:mt-48">
       {profileId && (
