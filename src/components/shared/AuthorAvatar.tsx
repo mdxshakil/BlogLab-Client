@@ -1,11 +1,15 @@
+import { useNavigate } from "react-router-dom";
+
 type IProps = {
   firstName: string;
   lastName: string;
   profilePicture: string;
   bloggerLevel: string;
+  authorId: string;
 };
 
 const AuthorAvatar = (author: IProps) => {
+  const navigate = useNavigate();
   return (
     <div className="flex items-center gap-2 md:gap-4">
       <div className="avatar">
@@ -13,7 +17,10 @@ const AuthorAvatar = (author: IProps) => {
           <img src={author.profilePicture} />
         </div>
       </div>
-      <div>
+      <div
+        className="cursor-pointer"
+        onClick={() => navigate(`/profile/${author.authorId}`)}
+      >
         <h6 className="font-bold text-[10px] md:text-sm">
           {author.firstName + " " + author.lastName}
         </h6>

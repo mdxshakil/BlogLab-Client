@@ -44,6 +44,7 @@ export default function BlogCardVertical({ blog }: { blog: any }) {
           lastName={blog.author.lastName}
           profilePicture={blog.author.profilePicture}
           bloggerLevel={blog.author.bloggerLevel}
+          authorId={blog.author.id}
         />
       </div>
     </div>

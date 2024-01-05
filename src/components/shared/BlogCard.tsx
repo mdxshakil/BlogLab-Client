@@ -88,6 +88,7 @@ const BlogCard = ({ blog }: { blog: any }) => {
           lastName={blog.author.lastName}
           profilePicture={blog.author.profilePicture}
           bloggerLevel={blog.author.bloggerLevel}
+          authorId={blog.author.id}
         />
         <div className="grid grid-cols-4 md:grid-cols-4 gap-x-2 gap-y-2 w-full md:w-1/2">
           <LikeBtn

@@ -94,7 +94,7 @@ const BlogDetailsCard = ({ isModal, blog }: IProps) => {
   return (
     <div className="bg-base-300 p-6 lg:p-12 rounded-lg">
       <div>
-        {/* title, mage and date */}
+        {/* title, image and date */}
         <div>
           <div className="flex items-center gap-4">
             <CategoryBtn category={category.title} />
@@ -122,6 +122,7 @@ const BlogDetailsCard = ({ isModal, blog }: IProps) => {
               lastName={lastName}
               bloggerLevel={bloggerLevel}
               profilePicture={profilePicture}
+              authorId={authorId}
             />
             {/* only blog owner can see edit and delete button */}
             {authorId === profileId && (

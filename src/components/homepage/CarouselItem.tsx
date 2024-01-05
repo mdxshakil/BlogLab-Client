@@ -11,6 +11,7 @@ import { useAppSelector } from "../../redux/hooks";
 const CarouselItem = ({ blog }: { blog: any }) => {
   const { profileId } = useAppSelector((state) => state?.auth?.user);
   const { title, createdAt, category, author, id, banner } = blog || {};
+
   return (
     <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 p-12">
       <div className="order-last lg:order-first relative">
@@ -49,6 +50,7 @@ const CarouselItem = ({ blog }: { blog: any }) => {
           lastName={author.lastName}
           profilePicture={author.profilePicture}
           bloggerLevel={author.bloggerLevel}
+          authorId={author.id}
         />
       </div>
     </div>
