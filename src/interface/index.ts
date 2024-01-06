@@ -16,3 +16,14 @@ export type IComment = {
   profileId: string;
   blogId: string;
 };
+
+export type IFeaturedProfile = {
+  id: string;
+  bloggerLevel: string;
+  firstName: string;
+  lastName: string;
+  blogs: [];
+  followers: [];
+  following: [];
+  profilePicture: string;
+};

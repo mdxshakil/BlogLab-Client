@@ -9,15 +9,23 @@ import {
   useGetBlogByIdQuery,
 } from "../redux/features/blog/blogApi";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
+import useGetUserFromStore from "../hooks/useGetUser";
+import { useIsFollowingQuery } from "../redux/features/following/followingApi";
 
 const BlogDetails = () => {
   const { blogId } = useParams();
-  const { data, isLoading, isError } = useGetBlogByIdQuery(blogId);
+  const { data: blog, isLoading, isError } = useGetBlogByIdQuery(blogId);
+  const { profileId } = useGetUserFromStore();
   const {
     data: authorBlogs,
     isLoading: authorBlogsLoading,
     isError: authorBlogsError,
-  } = useGetBlogByAuthorIdQuery(data?.data?.authorId);
+  } = useGetBlogByAuthorIdQuery(blog?.data?.authorId);
+
+  const { data } = useIsFollowingQuery({
+    userId: profileId,
+    followingId: blog?.data?.authorId,
+  });
 
   let blogDetailsContent;
   if (isLoading) {
@@ -27,7 +35,7 @@ const BlogDetails = () => {
   } else if (!isLoading && !isError && authorBlogs?.data?.length === 0) {
     blogDetailsContent = <p className="text-error">No content found</p>;
   } else if (!isLoading && !isError && authorBlogs?.data?.length > 0) {
-    blogDetailsContent = <BlogDetailsCard blog={data?.data} />;
+    blogDetailsContent = <BlogDetailsCard blog={blog?.data} />;
   }
 
   return (
@@ -39,12 +47,15 @@ const BlogDetails = () => {
           <MemberDiscussion blogId={blogId as string} />
         </div>
         <Sidebar
-          title={`More from ${data?.data?.author?.firstName}`}
+          title={`More from ${blog?.data?.author?.firstName}`}
           blogs={authorBlogs}
           isLoading={authorBlogsLoading}
           isError={authorBlogsError}
         >
-          <ProfileCard author={data?.data?.author} />
+          <ProfileCard
+            author={blog?.data?.author}
+            isAlreadyFollowing={data?.data}
+          />
         </Sidebar>
       </div>
     </section>

@@ -3,6 +3,7 @@
 import { useGetFeaturedBlogsQuery } from "../../redux/features/blog/blogApi";
 import BlogCard from "../shared/BlogCard";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import SectionTitle from "./SectionTitle";
 
 export default function FeaturedPosts() {
   const {
@@ -25,9 +26,7 @@ export default function FeaturedPosts() {
   }
   return (
     <div className="mb-12 md:mb-16">
-      <h2 className="font-bold md:text-3xl text-lg mb-6">
-        More Featured Blogs
-      </h2>
+      <SectionTitle title="More Featured Blogs" />
       <div className="grid grid-cols-1 gap-3 md:gap-6">{content}</div>
     </div>
   );

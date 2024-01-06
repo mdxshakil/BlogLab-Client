@@ -3,6 +3,7 @@
 import { useGetMostLikedBlogsQuery } from "../../redux/features/blog/blogApi";
 import BlogCardVertical from "../BlogCardVertical";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import SectionTitle from "./SectionTitle";
 
 export default function MostLikedPosts() {
   const {
@@ -25,9 +26,7 @@ export default function MostLikedPosts() {
   }
   return (
     <div className="mb-12 md:mb-16">
-      <h2 className="font-bold md:text-3xl text-lg mb-6 flex items-center gap-2">
-        Most Liked Posts 
-      </h2>
+      <SectionTitle title=" Most Liked Posts" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {content}
       </div>

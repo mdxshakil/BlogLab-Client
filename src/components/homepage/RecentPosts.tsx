@@ -3,6 +3,7 @@
 import { useGetLatestBlogsQuery } from "../../redux/features/blog/blogApi";
 import BlogCardVertical from "../BlogCardVertical";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import SectionTitle from "./SectionTitle";
 
 export default function RecentPosts() {
   const { data: blogs, isLoading, isError } = useGetLatestBlogsQuery(undefined);
@@ -21,9 +22,7 @@ export default function RecentPosts() {
   }
   return (
     <div className="mb-12 md:mb-16">
-      <h2 className="font-bold md:text-3xl text-lg mb-6">
-        Recent Posts and Articles
-      </h2>  
+      <SectionTitle title="Recent Posts and Articles" />
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {content}
       </div>

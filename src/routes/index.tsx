@@ -21,6 +21,8 @@ import RequireAuth from "../components/privateRoute/RequireAuth";
 import CategorizedBlogs from "../pages/CategorizedBlogs";
 import BlogSearchPage from "../pages/BlogSearchPage";
 import BloggerPublicProfilePage from "../pages/dasboard/blogger/BloggerPublicProfilePage";
+import FollowersPage from "../pages/dasboard/blogger/FollowersPage";
+import FollowingsPage from "../pages/dasboard/common/FollowingsPage";
 
 const router = createBrowserRouter([
   {
@@ -116,6 +118,14 @@ const router = createBrowserRouter([
       {
         path: "reading-history",
         element: <ReadingHistoryPage />,
+      },
+      {
+        path: "followers",
+        element: <FollowersPage />,
+      },
+      {
+        path: "followings",
+        element: <FollowingsPage />,
       },
     ],
   },

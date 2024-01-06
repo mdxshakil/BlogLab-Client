@@ -16,8 +16,17 @@ export const profileApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    getFeaturedProfiles: builder.query({
+      query: () => ({
+        url: "/profile/featured-profiles",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useUpdateBlogReadCountMutation, useGetProfileInfoQuery } =
-  profileApi;
+export const {
+  useUpdateBlogReadCountMutation,
+  useGetProfileInfoQuery,
+  useGetFeaturedProfilesQuery,
+} = profileApi;

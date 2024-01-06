@@ -5,6 +5,7 @@ import RecentPosts from "../components/homepage/RecentPosts";
 import MyFeed from "../components/homepage/MyFeed";
 import FeaturedPosts from "../components/homepage/FeaturedPosts";
 import HeroSection from "../components/homepage/HeroSection";
+import FeaturedProfiles from "../components/homepage/FeaturedProfiles";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <MostLikedPosts />
       <RecentPosts />
       <FeaturedPosts />
+      <FeaturedProfiles />
     </div>
   );
 };

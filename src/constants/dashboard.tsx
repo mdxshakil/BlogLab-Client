@@ -1,12 +1,14 @@
 import {
-  AiFillBook,
-  AiFillTrophy,
+  AiOutlineBook,
   AiOutlineHistory,
+  AiOutlineTrophy,
   AiOutlineUser,
 } from "react-icons/ai";
 import { BiSolidCategory } from "react-icons/bi";
 import { BiSolidDashboard } from "react-icons/bi";
 import { RxAvatar } from "react-icons/rx";
+import { GiShadowFollower } from "react-icons/gi";
+import { SlUserFollowing } from "react-icons/sl";
 
 export const SidebarLinks = (location: string, userRole: string) => {
   const adminDashboardSidebarLinks = [
@@ -27,7 +29,7 @@ export const SidebarLinks = (location: string, userRole: string) => {
     {
       id: 3,
       path: "/dashboard/manage-blogs",
-      icon: <AiFillBook className="text-sm md:text-xl" />,
+      icon: <AiOutlineBook className="text-sm md:text-xl" />,
       label: "Manage Blogs",
       isActive: location === "/dashboard/manage-blogs",
     },
@@ -58,19 +60,33 @@ export const SidebarLinks = (location: string, userRole: string) => {
     {
       id: 2,
       path: "/dashboard/my-blogs",
-      icon: <AiFillBook className="text-sm md:text-xl" />,
+      icon: <AiOutlineBook className="text-sm md:text-xl" />,
       label: "My Blogs",
       isActive: location === "/dashboard/my-blogs",
     },
     {
       id: 3,
+      path: "/dashboard/followers",
+      icon: <GiShadowFollower className="text-sm md:text-xl" />,
+      label: "My Followers",
+      isActive: location === "/dashboard/followers",
+    },
+    {
+      id: 4,
+      path: "/dashboard/followings",
+      icon: <SlUserFollowing className="text-sm md:text-xl" />,
+      label: "My Followings",
+      isActive: location === "/dashboard/followings",
+    },
+    {
+      id: 5,
       path: "/dashboard/achivements",
-      icon: <AiFillTrophy className="text-sm md:text-xl" />,
+      icon: <AiOutlineTrophy className="text-sm md:text-xl" />,
       label: "Achivements",
       isActive: location === "/dashboard/achivements",
     },
     {
-      id: 4,
+      id: 6,
       path: "/dashboard/reading-history",
       icon: <AiOutlineHistory className="text-sm md:text-xl" />,
       label: "Reading History",
@@ -88,13 +104,20 @@ export const SidebarLinks = (location: string, userRole: string) => {
     },
     {
       id: 2,
+      path: "/dashboard/followings",
+      icon: <SlUserFollowing className="text-sm md:text-xl" />,
+      label: "My Followings",
+      isActive: location === "/dashboard/followings",
+    },
+    {
+      id: 3,
       path: "/dashboard/achivements",
-      icon: <AiFillTrophy className="text-sm md:text-xl" />,
+      icon: <AiOutlineTrophy className="text-sm md:text-xl" />,
       label: "Achivements",
       isActive: location === "/dashboard/achivements",
     },
     {
-      id: 3,
+      id: 4,
       path: "/dashboard/reading-history",
       icon: <AiOutlineHistory className="text-sm md:text-xl" />,
       label: "Reading History",

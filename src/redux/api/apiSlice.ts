@@ -24,5 +24,5 @@ export const api = createApi({
     return result;
   },
   endpoints: () => ({}),
-  tagTypes: ["users", "blogs_for_dashboard","categories"],
+  tagTypes: ["users", "blogs_for_dashboard","categories","is_following"],
 });
